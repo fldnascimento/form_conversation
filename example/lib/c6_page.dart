@@ -29,7 +29,7 @@ class _C6PageState extends State<C6Page> {
           ),
         ),
         FormItem(
-          delay: 2000,
+          delay: 3000,
           card: const FormCard(
             text: 'Teste2',
           ),

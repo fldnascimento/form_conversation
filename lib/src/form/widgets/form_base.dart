@@ -44,17 +44,18 @@ class _FormBaseState extends State<FormBase> {
                   builder: (context, state) {
                     if (state.status == FormStateStatus.editing) {
                       widget.controller.buildCurrentItem();
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ...state.formScreenItems.map((e) => e.card),
-                        ],
-                      );
                     }
 
-                    return const SizedBox();
+                    final items =
+                        state.formScreenItems.map((e) => e.card).toList();
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ...items,
+                      ],
+                    );
                   },
                 ),
               ),

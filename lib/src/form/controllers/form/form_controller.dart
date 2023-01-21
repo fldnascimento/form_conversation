@@ -22,9 +22,9 @@ class FormController extends Controller<FormState> {
     );
   }
 
-  void addScreen(FormItem item) {
+  Future<void> addScreen(FormItem item) async {
     emit(state.copyWith(status: FormStateStatus.loading));
-    Future.delayed(Duration(milliseconds: item.delay), () async {
+    await Future.delayed(Duration(milliseconds: item.delay), () async {
       emit(
         state.copyWith(
           formScreenItems: [...state.formScreenItems, item],
@@ -38,17 +38,20 @@ class FormController extends Controller<FormState> {
     // first item
     if (state.formScreenItems.isEmpty) {
       addScreen(state.currentItem!);
-    } else if (buildNextItem) { // build next item
-      int indexItem = state.formScreenItems.length - 1;
+      return;
+    }
+
+    // build next item
+    if (buildNextItem) {
+      int indexItem = state.formScreenItems.length;
       addScreen(state.formItems![indexItem]);
+      return;
     }
   }
 
   bool get buildNextItem {
-    bool current = state.formScreenItems.isNotEmpty &&
-        state.formScreenItems.last == state.currentItem;
     bool notItemLast = state.formItems!.length > state.formScreenItems.length;
-    return current && notItemLast;
+    return notItemLast;
   }
 
   void next({int jump = 0}) {}
