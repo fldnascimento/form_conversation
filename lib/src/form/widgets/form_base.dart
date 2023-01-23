@@ -43,11 +43,12 @@ class _FormBaseState extends State<FormBase> {
                   bloc: context.controller,
                   builder: (context, state) {
                     if (state.status == FormStateStatus.editing) {
-                      widget.controller.buildCurrentItem();
+                      if (state.currentItem?.action == null) {
+                        widget.controller.buildNextItem();
+                      }
                     }
-
                     final items =
-                        state.formScreenItems.map((e) => e.card).toList();
+                        state.formScreenItems.map((e) => e.widget).toList();
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,14 +65,20 @@ class _FormBaseState extends State<FormBase> {
           ControllerBuilder<FormController, form.FormState>(
             bloc: context.controller,
             builder: (context, state) {
-              return Visibility(
-                visible: state.status == FormStateStatus.loading,
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
+              if (state.status == FormStateStatus.editing) {
+                return state.currentItem?.action ?? const SizedBox();
+              }
+              if (state.status == FormStateStatus.loading) {
+                return Visibility(
+                  visible: state.status == FormStateStatus.loading,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return const SizedBox();
             },
-          )
+          ),
         ],
       ),
     );

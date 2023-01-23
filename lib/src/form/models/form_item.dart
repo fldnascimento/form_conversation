@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/form_card.dart';
 
 class FormItem {
+  final String? tag;
   final FormCard card;
   final Widget? action;
   final bool edit;
@@ -10,6 +11,7 @@ class FormItem {
 
   const FormItem({
     required this.card,
+    this.tag,
     this.action,
     this.edit = true,
     this.delay = 0,

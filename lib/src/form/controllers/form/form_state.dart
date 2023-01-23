@@ -1,7 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/foundation.dart';
 
 import '../../models/form_item.dart';
+import '../../models/form_screen_item.dart';
 
 enum FormStateStatus {
   initial,
@@ -12,12 +12,14 @@ enum FormStateStatus {
 
 class FormState {
   final List<FormItem>? formItems;
-  final List<FormItem> formScreenItems;
+  final List<FormScreenItemModel> formScreenItems;
   final FormItem? currentItem;
   final FormStateStatus? status;
+  final Map<String, ValueNotifier> values;
 
   const FormState({
     required this.formScreenItems,
+    required this.values,
     this.formItems,
     this.currentItem,
     this.status,
@@ -25,15 +27,17 @@ class FormState {
 
   FormState copyWith({
     List<FormItem>? formItems,
-    List<FormItem>? formScreenItems,
+    List<FormScreenItemModel>? formScreenItems,
     FormItem? currentItem,
     FormStateStatus? status,
+    Map<String, ValueNotifier>? values,
   }) {
     return FormState(
       formItems: formItems ?? this.formItems,
       currentItem: currentItem ?? this.currentItem,
       formScreenItems: formScreenItems ?? this.formScreenItems,
       status: status ?? this.status,
+      values: values ?? this.values,
     );
   }
 
@@ -55,19 +59,3 @@ class FormState {
         status.hashCode;
   }
 }
-
-// class FormInitState extends FormState {}
-
-// class FormLoadingState extends FormState {}
-
-// class FormEditingState extends FormState {
-//   final List<FormItem> formScreenItems;
-//   final FormItem currentItem;
-
-//   FormEditingState({
-//     required this.formScreenItems,
-//     required this.currentItem,
-//   });
-// }
-
-// class FormFinishState extends FormState {}

@@ -8,7 +8,7 @@ class FormCard extends StatelessWidget {
     super.key,
     this.text,
     this.widget,
-  }); //: assert(text == null && widget == null, 'fill text or widget');
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class FormCard extends StatelessWidget {
       elevation: 0,
       child: widget ??
           Container(
-            constraints: const BoxConstraints(maxWidth: 220),
+            constraints: const BoxConstraints(maxWidth: 280),
             margin: const EdgeInsets.all(10),
             child: Text(
               text!,

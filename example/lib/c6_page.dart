@@ -23,29 +23,84 @@ class _C6PageState extends State<C6Page> {
       controller: controller,
       formItems: [
         const FormItem(
-          delay: 2000,
+          delay: 1000,
           card: FormCard(
-            text: 'Teste',
+            text: 'Olá! 😃',
+          ),
+        ),
+        const FormItem(
+          delay: 1000,
+          card: FormCard(
+            text: 'Que bom ver você aqui!',
+          ),
+        ),
+        const FormItem(
+          delay: 1000,
+          card: FormCard(
+            text:
+                'Para começar, separe seu documento de identidade com foto. A abertura da sua conta é rápida e leva poucos minutos.',
+          ),
+        ),
+        const FormItem(
+          delay: 1000,
+          card: FormCard(
+            text: 'Primeiro, qual tipo de conta você quer abrir?',
           ),
         ),
         FormItem(
-          delay: 3000,
-          card: const FormCard(
-            text: 'Teste2',
-          ),
-          action: ElevatedButton(
-            child: const Text('teste'),
-            onPressed: () {},
-          ),
-        ),
-        FormItem(
-          delay: 3000,
+          tag: 'teste',
+          delay: 1000,
           card: const FormCard(
             text: 'Teste3',
           ),
-          action: ElevatedButton(
-            child: const Text('teste'),
-            onPressed: () {},
+          action: FormTextField(
+            tag: 'teste',
+            formController: controller,
+            hintText: 'teste',
+            onChanged: (value) {
+              controller.setValue('teste', value);
+              controller.setValue('__edit__', value);
+            },
+            suffix: FormIconButton(
+              icon: const Icon(
+                Icons.send,
+                color: Colors.white,
+                size: 18,
+              ),
+              onPressed: () {
+                controller.addScreenAnswer(
+                  const FormAnswer(
+                    tag: 'teste',
+                    text: 'teste',
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        FormItem(
+          tag: 'teste4',
+          delay: 1000,
+          card: const FormCard(
+            text: 'Teste4',
+          ),
+          action: FormTextField(
+            tag: 'teste4',
+            formController: controller,
+            hintText: 'teste',
+            onChanged: (value) {
+              print(value);
+            },
+            suffix: FormIconButton(
+              icon: const Icon(
+                Icons.send,
+                color: Colors.white,
+                size: 18,
+              ),
+              onPressed: () {
+                controller.buildNextItem();
+              },
+            ),
           ),
         ),
       ],
