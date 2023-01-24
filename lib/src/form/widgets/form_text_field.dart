@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../form_conversation.dart';
-import '../contants/strings_constants.dart';
+import '../constants/strings_constants.dart';
 
 class FormTextField extends StatelessWidget {
   final String tag;

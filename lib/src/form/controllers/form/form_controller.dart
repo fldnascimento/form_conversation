@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 
 import '../../../core/controller.dart';
-import '../../contants/strings_constants.dart';
-import '../../models/form_item.dart';
+import '../../constants/strings_constants.dart';
+import '../../models/form_item_action.dart';
+import '../../models/form_item_base.dart';
 import '../../models/form_screen_item.dart';
 import '../../widgets/form_answer.dart';
 import 'form_state.dart';
@@ -17,7 +18,7 @@ class FormController extends Controller<FormState> {
           ),
         );
 
-  void init(List<FormItem> formItems) {
+  void init(List<FormItemBase> formItems) {
     emit(
       state.copyWith(
         values: {StringConstants.tagEdit: ValueNotifier<String>('')},
@@ -29,32 +30,54 @@ class FormController extends Controller<FormState> {
     );
   }
 
-  Future<void> addScreen(FormItem item) async {
+  Future<void> addScreen(FormItemBase item) async {
     emit(state.copyWith(status: FormStateStatus.loading));
     await Future.delayed(Duration(milliseconds: item.delay), () async {
-      final widget = FormScreenItemModel(
-        widget: item.card,
-        hash: item.hashCode,
-      );
-      emit(
-        state.copyWith(
-          values: item.tag != null
-              ? {
-                  ...state.values,
-                  item.tag ?? StringConstants.empty:
-                      ValueNotifier<String>(StringConstants.empty)
-                }
-              : null,
-          currentItem: item,
-          formScreenItems: [...state.formScreenItems, widget],
-          status: FormStateStatus.editing,
-        ),
-      );
+      if (item is FormItemAction) {
+        _addScreenItemAction(item);
+      } else {
+        _addScreenItemBase(item);
+      }
     });
   }
 
-  FormItem getFormItemByTag(String tag) {
-    return state.formItems!.where((element) => element.tag == tag).first;
+  void _addScreenItemBase(FormItemBase item) {
+    final widget = FormScreenItemModel(
+      widget: item.card,
+      hash: item.hashCode,
+    );
+    emit(
+      state.copyWith(
+        currentItem: item,
+        formScreenItems: [...state.formScreenItems, widget],
+        status: FormStateStatus.editing,
+      ),
+    );
+  }
+
+  void _addScreenItemAction(FormItemAction item) {
+    final widget = FormScreenItemModel(
+      widget: item.card,
+      hash: item.hashCode,
+    );
+    emit(
+      state.copyWith(
+        values: {
+          ...state.values,
+          item.tag: ValueNotifier<String>(StringConstants.empty)
+        },
+        currentItem: item,
+        formScreenItems: [...state.formScreenItems, widget],
+        status: FormStateStatus.editing,
+      ),
+    );
+  }
+
+  FormItemAction getFormItemByTag(String tag) {
+    return state.formItems!
+        .whereType<FormItemAction>()
+        .where((element) => element.tag == tag)
+        .first;
   }
 
   ValueNotifier getValue(String tag) {

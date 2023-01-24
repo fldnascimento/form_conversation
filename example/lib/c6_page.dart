@@ -22,33 +22,34 @@ class _C6PageState extends State<C6Page> {
     return FormConversation(
       controller: controller,
       formItems: [
-        const FormItem(
+        const FormItemMessage(
           delay: 1000,
           card: FormCard(
             text: 'Olá! 😃',
           ),
         ),
-        const FormItem(
+        const FormItemMessage(
           delay: 1000,
           card: FormCard(
             text: 'Que bom ver você aqui!',
           ),
         ),
-        const FormItem(
+        const FormItemMessage(
           delay: 1000,
           card: FormCard(
             text:
                 'Para começar, separe seu documento de identidade com foto. A abertura da sua conta é rápida e leva poucos minutos.',
           ),
         ),
-        const FormItem(
+        const FormItemMessage(
           delay: 1000,
           card: FormCard(
             text: 'Primeiro, qual tipo de conta você quer abrir?',
           ),
         ),
-        FormItem(
+        FormItemAction(
           tag: 'teste',
+          name: 'Teste',
           delay: 1000,
           card: const FormCard(
             text: 'Teste3',
@@ -78,8 +79,9 @@ class _C6PageState extends State<C6Page> {
             ),
           ),
         ),
-        FormItem(
+        FormItemAction(
           tag: 'teste4',
+          name: 'Teste 4',
           delay: 1000,
           card: const FormCard(
             text: 'Teste4',

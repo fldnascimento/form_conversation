@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../form_conversation.dart';
 import '../../core/controller_builder.dart';
 import '../controllers/form/form_state.dart' as form;
+import '../models/form_item_base.dart';
 
 class FormBase extends StatefulWidget {
   final FormController controller;
-  final List<FormItem> formItems;
+  final List<FormItemBase> formItems;
   const FormBase({
     super.key,
     required this.controller,
@@ -43,7 +44,7 @@ class _FormBaseState extends State<FormBase> {
                   bloc: context.controller,
                   builder: (context, state) {
                     if (state.status == FormStateStatus.editing) {
-                      if (state.currentItem?.action == null) {
+                      if (state.currentItem is! FormItemAction) {
                         widget.controller.buildNextItem();
                       }
                     }
@@ -66,7 +67,10 @@ class _FormBaseState extends State<FormBase> {
             bloc: context.controller,
             builder: (context, state) {
               if (state.status == FormStateStatus.editing) {
-                return state.currentItem?.action ?? const SizedBox();
+                final currentItem = state.currentItem;
+                if (currentItem is FormItemAction) {
+                  return currentItem.action;
+                }
               }
               if (state.status == FormStateStatus.loading) {
                 return Visibility(

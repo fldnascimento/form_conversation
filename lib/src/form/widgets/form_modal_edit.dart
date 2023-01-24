@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:form_conversation/src/form/contants/strings_constants.dart';
+import 'package:form_conversation/src/form/constants/strings_constants.dart';
 
 import '../../../form_conversation.dart';
 
 showModalEdit(String tag, BuildContext context) {
-  final formItem = context.controller.getFormItemByTag(tag);
-  return showModalBottomSheet<bool>(
+  final controller = context.controller;
+  final formItem = controller.getFormItemByTag(tag);
+  showModalBottomSheet(
     enableDrag: false,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -21,7 +22,8 @@ showModalEdit(String tag, BuildContext context) {
         valueListenable: context.controller.getValue(StringConstants.tagEdit),
         builder: (context, value, child) {
           if (value == StringConstants.empty) {
-            Navigator.pop(context, true);
+            Navigator.of(context).pop();
+            controller.setValue(StringConstants.tagEdit, " ");
           }
 
           return SingleChildScrollView(

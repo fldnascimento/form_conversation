@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:form_conversation/src/form/models/form_item_base.dart';
 
 import '../controllers/form/form_controller.dart';
-import '../models/form_item.dart';
 import 'form_base.dart';
 
 class FormConversation extends InheritedWidget {
   final FormController controller;
 
-  final List<FormItem> formItems;
+  final List<FormItemBase> formItems;
 
   FormConversation({
     super.key,
