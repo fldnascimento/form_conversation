@@ -1,34 +1,24 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class TypingIndicator extends StatefulWidget {
-  const TypingIndicator({
+import 'form_card.dart';
+
+class FormLoading extends StatefulWidget {
+  const FormLoading({
     super.key,
-    this.showIndicator = true,
-    this.bubbleColor = const Color(0xFF646b7f),
-    this.flashingCircleDarkColor = const Color(0xFF333333),
-    this.flashingCircleBrightColor = const Color(0xFFaec1dd),
   });
 
-  final bool showIndicator;
-  final Color bubbleColor;
-  final Color flashingCircleDarkColor;
-  final Color flashingCircleBrightColor;
-
   @override
-  State<TypingIndicator> createState() => _TypingIndicatorState();
+  State<FormLoading> createState() => _FormLoadingState();
 }
 
-class _TypingIndicatorState extends State<TypingIndicator>
+class _FormLoadingState extends State<FormLoading>
     with TickerProviderStateMixin {
   late AnimationController _appearanceController;
 
   late Animation<double> _indicatorSpaceAnimation;
 
-  late Animation<double> _smallBubbleAnimation;
-  late Animation<double> _mediumBubbleAnimation;
   late Animation<double> _largeBubbleAnimation;
 
   late AnimationController _repeatingController;
@@ -57,16 +47,6 @@ class _TypingIndicatorState extends State<TypingIndicator>
       end: 60.0,
     ));
 
-    _smallBubbleAnimation = CurvedAnimation(
-      parent: _appearanceController,
-      curve: const Interval(0.0, 0.5, curve: Curves.elasticOut),
-      reverseCurve: const Interval(0.0, 0.3, curve: Curves.easeOut),
-    );
-    _mediumBubbleAnimation = CurvedAnimation(
-      parent: _appearanceController,
-      curve: const Interval(0.2, 0.7, curve: Curves.elasticOut),
-      reverseCurve: const Interval(0.2, 0.6, curve: Curves.easeOut),
-    );
     _largeBubbleAnimation = CurvedAnimation(
       parent: _appearanceController,
       curve: const Interval(0.3, 1.0, curve: Curves.elasticOut),
@@ -78,22 +58,14 @@ class _TypingIndicatorState extends State<TypingIndicator>
       duration: const Duration(milliseconds: 1500),
     );
 
-    if (widget.showIndicator) {
-      _showIndicator();
-    }
+    _showIndicator();
   }
 
   @override
-  void didUpdateWidget(TypingIndicator oldWidget) {
+  void didUpdateWidget(FormLoading oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.showIndicator != oldWidget.showIndicator) {
-      if (widget.showIndicator) {
-        _showIndicator();
-      } else {
-        _hideIndicator();
-      }
-    }
+    _showIndicator();
   }
 
   @override
@@ -110,13 +82,6 @@ class _TypingIndicatorState extends State<TypingIndicator>
     _repeatingController.repeat();
   }
 
-  void _hideIndicator() {
-    _appearanceController
-      ..duration = const Duration(milliseconds: 150)
-      ..reverse();
-    _repeatingController.stop();
-  }
-
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -130,59 +95,15 @@ class _TypingIndicatorState extends State<TypingIndicator>
       child: Stack(
         children: [
           AnimatedBubble(
-            animation: _smallBubbleAnimation,
-            left: 8,
-            bottom: 8,
-            bubble: CircleBubble(
-              size: 8,
-              bubbleColor: widget.bubbleColor,
-            ),
-          ),
-          AnimatedBubble(
-            animation: _mediumBubbleAnimation,
-            left: 10,
-            bottom: 10,
-            bubble: CircleBubble(
-              size: 16,
-              bubbleColor: widget.bubbleColor,
-            ),
-          ),
-          AnimatedBubble(
             animation: _largeBubbleAnimation,
             left: 12,
             bottom: 12,
             bubble: StatusBubble(
               repeatingController: _repeatingController,
               dotIntervals: _dotIntervals,
-              flashingCircleDarkColor: widget.flashingCircleDarkColor,
-              flashingCircleBrightColor: widget.flashingCircleBrightColor,
-              bubbleColor: widget.bubbleColor,
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CircleBubble extends StatelessWidget {
-  const CircleBubble({
-    super.key,
-    required this.size,
-    required this.bubbleColor,
-  });
-
-  final double size;
-  final Color bubbleColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: bubbleColor,
       ),
     );
   }
@@ -227,52 +148,38 @@ class StatusBubble extends StatelessWidget {
     super.key,
     required this.repeatingController,
     required this.dotIntervals,
-    required this.flashingCircleBrightColor,
-    required this.flashingCircleDarkColor,
-    required this.bubbleColor,
   });
 
   final AnimationController repeatingController;
   final List<Interval> dotIntervals;
-  final Color flashingCircleDarkColor;
-  final Color flashingCircleBrightColor;
-  final Color bubbleColor;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 85,
-      height: 44,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(27),
-        color: bubbleColor,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FlashingCircle(
-            index: 0,
-            repeatingController: repeatingController,
-            dotIntervals: dotIntervals,
-            flashingCircleDarkColor: flashingCircleDarkColor,
-            flashingCircleBrightColor: flashingCircleBrightColor,
-          ),
-          FlashingCircle(
-            index: 1,
-            repeatingController: repeatingController,
-            dotIntervals: dotIntervals,
-            flashingCircleDarkColor: flashingCircleDarkColor,
-            flashingCircleBrightColor: flashingCircleBrightColor,
-          ),
-          FlashingCircle(
-            index: 2,
-            repeatingController: repeatingController,
-            dotIntervals: dotIntervals,
-            flashingCircleDarkColor: flashingCircleDarkColor,
-            flashingCircleBrightColor: flashingCircleBrightColor,
-          ),
-        ],
+    return FormCard(
+      widget: Container(
+        width: 60,
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FlashingCircle(
+              index: 0,
+              repeatingController: repeatingController,
+              dotIntervals: dotIntervals,
+            ),
+            FlashingCircle(
+              index: 1,
+              repeatingController: repeatingController,
+              dotIntervals: dotIntervals,
+            ),
+            FlashingCircle(
+              index: 2,
+              repeatingController: repeatingController,
+              dotIntervals: dotIntervals,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -284,15 +191,11 @@ class FlashingCircle extends StatelessWidget {
     required this.index,
     required this.repeatingController,
     required this.dotIntervals,
-    required this.flashingCircleBrightColor,
-    required this.flashingCircleDarkColor,
   });
 
   final int index;
   final AnimationController repeatingController;
   final List<Interval> dotIntervals;
-  final Color flashingCircleDarkColor;
-  final Color flashingCircleBrightColor;
 
   @override
   Widget build(BuildContext context) {
@@ -304,40 +207,22 @@ class FlashingCircle extends StatelessWidget {
         );
         final circleColorPercent = sin(pi * circleFlashPercent);
 
+        final brightColor = Theme.of(context).colorScheme.primary;
+        final darkColor = Theme.of(context).colorScheme.background;
+
         return Container(
-          width: 12,
-          height: 12,
+          width: 10,
+          height: 10,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Color.lerp(
-              flashingCircleDarkColor,
-              flashingCircleBrightColor,
+              darkColor,
+              brightColor,
               circleColorPercent,
             ),
           ),
         );
       },
-    );
-  }
-}
-
-class FakeMessage extends StatelessWidget {
-  const FakeMessage({
-    super.key,
-    required this.isBig,
-  });
-
-  final bool isBig;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-      height: isBig ? 128.0 : 36.0,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        color: Colors.grey.shade300,
-      ),
     );
   }
 }

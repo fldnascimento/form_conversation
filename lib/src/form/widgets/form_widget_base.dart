@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import '../../../form_conversation.dart';
 import '../../core/controller_builder.dart';
 import '../controllers/form/form_state.dart' as form;
-import '../models/form_item_base.dart';
+import '../models/form_base.dart';
 import 'form_loading.dart';
 
-class FormBase extends StatefulWidget {
+class FormWidgetBase extends StatefulWidget {
   final FormController controller;
-  final List<FormItemBase> formItems;
-  const FormBase({
+  final List<FormBase> formItems;
+  const FormWidgetBase({
     super.key,
     required this.controller,
     required this.formItems,
   });
 
   @override
-  State<FormBase> createState() => _FormBaseState();
+  State<FormWidgetBase> createState() => _FormWidgetBaseState();
 }
 
-class _FormBaseState extends State<FormBase> {
+class _FormWidgetBaseState extends State<FormWidgetBase> {
   @override
   void initState() {
     widget.controller.init(widget.formItems);
@@ -45,7 +45,7 @@ class _FormBaseState extends State<FormBase> {
                   bloc: context.controller,
                   builder: (context, state) {
                     if (state.status == FormStateStatus.editing) {
-                      if (state.currentItem is! FormItemAction) {
+                      if (state.currentItem is! FormAction) {
                         widget.controller.buildNextItem();
                       }
                     }
@@ -69,14 +69,14 @@ class _FormBaseState extends State<FormBase> {
             builder: (context, state) {
               if (state.status == FormStateStatus.editing) {
                 final currentItem = state.currentItem;
-                if (currentItem is FormItemAction) {
+                if (currentItem is FormAction) {
                   return currentItem.action;
                 }
               }
               return Visibility(
                 visible: state.status == FormStateStatus.loading,
                 child: const Center(
-                  child: TypingIndicator(),
+                  child: FormLoading(),
                 ),
               );
             },

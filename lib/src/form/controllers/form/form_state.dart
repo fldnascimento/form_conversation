@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../models/form_item_base.dart';
+import '../../models/form_base.dart';
 import '../../models/form_screen_item.dart';
 
 enum FormStateStatus {
@@ -11,9 +11,9 @@ enum FormStateStatus {
 }
 
 class FormState {
-  final List<FormItemBase>? formItems;
+  final List<FormBase>? formItems;
   final List<FormScreenItemModel> formScreenItems;
-  final FormItemBase? currentItem;
+  final FormBase? currentItem;
   final FormStateStatus? status;
   final Map<String, ValueNotifier> values;
 
@@ -26,9 +26,9 @@ class FormState {
   });
 
   FormState copyWith({
-    List<FormItemBase>? formItems,
+    List<FormBase>? formItems,
     List<FormScreenItemModel>? formScreenItems,
-    FormItemBase? currentItem,
+    FormBase? currentItem,
     FormStateStatus? status,
     Map<String, ValueNotifier>? values,
   }) {

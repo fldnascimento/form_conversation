@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' as wg;
 
 import '../../../core/controller.dart';
 import '../../constants/strings_constants.dart';
-import '../../models/form_item_action.dart';
-import '../../models/form_item_base.dart';
+import '../../models/form_action.dart';
+import '../../models/form_base.dart';
 import '../../models/form_screen_item.dart';
 import '../../widgets/form_answer.dart';
+import '../../widgets/form_card.dart';
 import 'form_state.dart';
 
 class FormController extends Controller<FormState> {
@@ -18,7 +20,7 @@ class FormController extends Controller<FormState> {
           ),
         );
 
-  void init(List<FormItemBase> formItems) {
+  void init(List<FormBase> formItems) {
     emit(
       state.copyWith(
         values: {StringConstants.tagEdit: ValueNotifier<String>('')},
@@ -30,10 +32,10 @@ class FormController extends Controller<FormState> {
     );
   }
 
-  Future<void> addScreen(FormItemBase item) async {
+  Future<void> addToScreen(FormBase item) async {
     emit(state.copyWith(status: FormStateStatus.loading));
     await Future.delayed(Duration(milliseconds: item.delay), () async {
-      if (item is FormItemAction) {
+      if (item is FormAction) {
         _addScreenItemAction(item);
       } else {
         _addScreenItemBase(item);
@@ -41,9 +43,9 @@ class FormController extends Controller<FormState> {
     });
   }
 
-  void _addScreenItemBase(FormItemBase item) {
+  void _addScreenItemBase(FormBase item) {
     final widget = FormScreenItemModel(
-      widget: item.card,
+      widget: item.widget,
       hash: item.hashCode,
     );
     emit(
@@ -55,9 +57,9 @@ class FormController extends Controller<FormState> {
     );
   }
 
-  void _addScreenItemAction(FormItemAction item) {
+  void _addScreenItemAction(FormAction item) {
     final widget = FormScreenItemModel(
-      widget: item.card,
+      widget: FormCard(text: item.text),
       hash: item.hashCode,
     );
     emit(
@@ -73,9 +75,9 @@ class FormController extends Controller<FormState> {
     );
   }
 
-  FormItemAction getFormItemByTag(String tag) {
+  FormAction getFormItemByTag(String tag) {
     return state.formItems!
-        .whereType<FormItemAction>()
+        .whereType<FormAction>()
         .where((element) => element.tag == tag)
         .first;
   }
@@ -93,7 +95,7 @@ class FormController extends Controller<FormState> {
   void buildNextItem() {
     // first item
     if (state.formScreenItems.isEmpty) {
-      addScreen(state.currentItem!);
+      addToScreen(state.currentItem!);
       return;
     }
 
@@ -101,7 +103,7 @@ class FormController extends Controller<FormState> {
     if (buildNext) {
       int indexItem =
           state.formScreenItems.where((element) => element.hash != null).length;
-      addScreen(state.formItems![indexItem]);
+      addToScreen(state.formItems![indexItem]);
       return;
     }
   }
@@ -112,7 +114,7 @@ class FormController extends Controller<FormState> {
     return notItemLast;
   }
 
-  void addScreenAnswer(FormAnswer answer) {
+  void addToScreenAnswer(FormAnswer answer) {
     if (!_isEdit(answer.tag)) {
       emit(
         state.copyWith(
@@ -128,6 +130,19 @@ class FormController extends Controller<FormState> {
       state.values[answer.tag]?.value = getValue(StringConstants.tagEdit).value;
       _popModalEdit();
     }
+  }
+
+  void addToScreenAnswerWidget(wg.Widget widget) {
+    emit(
+      state.copyWith(
+        formScreenItems: [
+          ...state.formScreenItems,
+          FormScreenItemModel(widget: widget),
+        ],
+        status: FormStateStatus.editing,
+      ),
+    );
+    buildNextItem();
   }
 
   void _popModalEdit() {
