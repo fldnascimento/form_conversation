@@ -29,20 +29,20 @@ class _C6PageState extends State<C6Page> {
           ),
         ),
         const FormItemMessage(
-          delay: 1000,
+          delay: 3000,
           card: FormCard(
             text: 'Que bom ver você aqui!',
           ),
         ),
         const FormItemMessage(
-          delay: 1000,
+          delay: 6000,
           card: FormCard(
             text:
                 'Para começar, separe seu documento de identidade com foto. A abertura da sua conta é rápida e leva poucos minutos.',
           ),
         ),
         const FormItemMessage(
-          delay: 1000,
+          delay: 2000,
           card: FormCard(
             text: 'Primeiro, qual tipo de conta você quer abrir?',
           ),

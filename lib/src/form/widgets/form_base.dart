@@ -4,6 +4,7 @@ import '../../../form_conversation.dart';
 import '../../core/controller_builder.dart';
 import '../controllers/form/form_state.dart' as form;
 import '../models/form_item_base.dart';
+import 'form_loading.dart';
 
 class FormBase extends StatefulWidget {
   final FormController controller;
@@ -72,15 +73,12 @@ class _FormBaseState extends State<FormBase> {
                   return currentItem.action;
                 }
               }
-              if (state.status == FormStateStatus.loading) {
-                return Visibility(
-                  visible: state.status == FormStateStatus.loading,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-              return const SizedBox();
+              return Visibility(
+                visible: state.status == FormStateStatus.loading,
+                child: const Center(
+                  child: TypingIndicator(),
+                ),
+              );
             },
           ),
         ],

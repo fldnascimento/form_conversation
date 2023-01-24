@@ -49,9 +49,7 @@ class FormAnswer extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        const SizedBox(width: 10),
         if (tag != null)
           ValueListenableBuilder(
             valueListenable: context.controller.getValue(tag!),

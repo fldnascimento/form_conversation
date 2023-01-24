@@ -29,7 +29,20 @@ showModalEdit(String tag, BuildContext context) {
           return SingleChildScrollView(
             child: Padding(
               padding: MediaQuery.of(context).viewInsets,
-              child: formItem.action,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+                    child: Text(
+                      "Corrigir ${formItem.name}",
+                      style: const TextStyle(fontSize: 20),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  formItem.action
+                ],
+              ),
             ),
           );
         },
