@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class FormIconButton extends StatelessWidget {
   final Function()? onPressed;
-  final Widget icon;
+  final Widget? icon;
   const FormIconButton({
     super.key,
-    required this.icon,
+    this.icon,
     this.onPressed,
   });
 
@@ -15,11 +15,16 @@ class FormIconButton extends StatelessWidget {
       height: 42,
       width: 42,
       child: RawMaterialButton(
-        fillColor: const Color(0xFF1A61AF),
-        elevation: 1.0,
+        fillColor: Theme.of(context).colorScheme.primary,
+        elevation: 0.0,
         shape: const CircleBorder(),
         onPressed: onPressed,
-        child: icon,
+        child: icon ??
+            Icon(
+              Icons.send,
+              color: Theme.of(context).colorScheme.onPrimary,
+              size: 18,
+            ),
       ),
     );
   }

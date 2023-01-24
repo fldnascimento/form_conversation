@@ -40,40 +40,37 @@ class FormTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        onTap: onTap,
-        controller: controller,
-        autofocus: autofocus,
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        initialValue: initialValue,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32),
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1,
-            ),
+    return TextFormField(
+      onTap: onTap,
+      controller: controller,
+      autofocus: autofocus,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      initialValue: initialValue,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(32),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 1,
           ),
-          prefix: const SizedBox(width: 16),
-          suffixIcon: _suffix,
-          hintText: hintText,
-          errorStyle: !showErrorText
-              ? const TextStyle(
-                  color: Colors.transparent, fontSize: 0, height: 0)
-              : const TextStyle(height: 0, wordSpacing: 1, fontSize: 10),
         ),
-        inputFormatters: inputFormatters,
-        onChanged: (value) {
-          formController.setValue(tag, value);
-          formController.setValue(StringConstants.tagEdit, value);
-          if (onChanged != null) {
-            onChanged!(value);
-          }
-        },
+        prefix: const SizedBox(width: 16),
+        suffixIcon: _suffix,
+        hintText: hintText,
+        errorStyle: !showErrorText
+            ? const TextStyle(
+                color: Colors.transparent, fontSize: 0, height: 0)
+            : const TextStyle(height: 0, wordSpacing: 1, fontSize: 10),
       ),
+      inputFormatters: inputFormatters,
+      onChanged: (value) {
+        formController.setValue(tag, value);
+        formController.setValue(StringConstants.tagEdit, value);
+        if (onChanged != null) {
+          onChanged!(value);
+        }
+      },
     );
   }
 

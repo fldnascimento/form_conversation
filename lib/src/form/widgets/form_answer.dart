@@ -53,15 +53,24 @@ class FormAnswer extends StatelessWidget {
         if (tag != null)
           ValueListenableBuilder(
             valueListenable: context.controller.getValue(tag!),
-            builder: (context, value, child) => buildCard(value),
+            builder: (context, value, child) => AnswerCard(text: value),
           )
         else
-          buildCard(text!),
+          AnswerCard(text: text!),
       ],
     );
   }
+}
 
-  Widget buildCard(String text) {
+class AnswerCard extends StatelessWidget {
+  final String text;
+  const AnswerCard({
+    super.key,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -70,15 +79,18 @@ class FormAnswer extends StatelessWidget {
           bottomLeft: Radius.circular(15.0),
         ),
       ),
-      color: const Color(0xFF1A61AF),
+      // color: const Color(0xFF1A61AF),
+      color: Theme.of(context).colorScheme.secondary,
       elevation: 0,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 220),
+        constraints: const BoxConstraints(maxWidth: 250),
         margin: const EdgeInsets.all(10),
         child: Text(
           text,
-          style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSecondary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

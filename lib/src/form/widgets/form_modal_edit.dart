@@ -40,7 +40,10 @@ showModalEdit(String tag, BuildContext context) {
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  formItem.action
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: formItem.action,
+                  ),
                 ],
               ),
             ),

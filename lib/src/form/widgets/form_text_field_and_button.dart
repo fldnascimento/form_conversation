@@ -61,11 +61,6 @@ class FormTextFieldAndButton extends StatelessWidget {
       showErrorText: showErrorText,
       hintText: hintText,
       suffix: FormIconButton(
-        icon: const Icon(
-          Icons.send,
-          color: Colors.white,
-          size: 18,
-        ),
         onPressed: () {
           formController.addToScreenAnswer(
             FormAnswer(

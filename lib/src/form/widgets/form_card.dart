@@ -20,15 +20,18 @@ class FormCard extends StatelessWidget {
           bottomRight: Radius.circular(15.0),
         ),
       ),
-      color: const Color(0xFFDCECFF),
+      // color: const Color(0xFFDCECFF),
+      color: Theme.of(context).colorScheme.primary,
       elevation: 0,
       child: widget ??
           Container(
-            constraints: const BoxConstraints(maxWidth: 280),
+            constraints: const BoxConstraints(maxWidth: 250),
             margin: const EdgeInsets.all(10),
             child: Text(
               text!,
-              style: const TextStyle(fontSize: 15),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ),
           ),
     );

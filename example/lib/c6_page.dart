@@ -46,11 +46,6 @@ class _C6PageState extends State<C6Page> {
             formController: controller,
             hintText: 'Digite seu nome',
             suffix: FormIconButton(
-              icon: const Icon(
-                Icons.send,
-                color: Colors.white,
-                size: 18,
-              ),
               onPressed: () {
                 controller.addToScreenAnswer(const FormAnswer(
                   edit: true,
@@ -66,7 +61,17 @@ class _C6PageState extends State<C6Page> {
           text: 'Digite seu CPF',
           action: FormTextFieldAndButton(
             tag: 'cpf',
+            hintText: 'Informe seu CPF',
             formController: controller,
+          ),
+        ),
+        FormAction(
+          tag: 'email',
+          text: 'Digite seu e-mail',
+          name: 'E-mail',
+          action: FormButton(
+            onPressed: () {},
+            label: 'SELECIONAR',
           ),
         ),
       ],
