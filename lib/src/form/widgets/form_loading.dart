@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../core/colors_util.dart';
 import 'form_card.dart';
 
 class FormLoading extends StatefulWidget {
@@ -207,8 +208,8 @@ class FlashingCircle extends StatelessWidget {
         );
         final circleColorPercent = sin(pi * circleFlashPercent);
 
-        final brightColor = Theme.of(context).colorScheme.primary;
-        final darkColor = Theme.of(context).colorScheme.background;
+        final brightColor = Theme.of(context).colorScheme.onPrimary;
+        final darkColor = Theme.of(context).colorScheme.primary.shade400;
 
         return Container(
           width: 10,

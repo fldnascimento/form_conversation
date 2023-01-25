@@ -1,4 +1,5 @@
-import '../../../form_conversation.dart';
+import 'package:form_conversation/form_conversation.dart';
+
 import 'form_base.dart';
 
 class FormMessage extends FormBase {

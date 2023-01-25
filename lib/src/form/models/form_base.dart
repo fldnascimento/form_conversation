@@ -1,12 +1,12 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 abstract class FormBase {
-  final Widget widget;
   final int delay;
+  final Widget widget;
 
   const FormBase({
-    required this.widget,
     this.delay = -1,
+    required this.widget,
   });
 
   int delayCalc(String text) {

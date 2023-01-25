@@ -25,6 +25,7 @@ class FormTextFieldAndButton extends StatelessWidget {
     this.suffix,
     this.onPressed,
     this.edit = true,
+    this.backgroundColor,
   });
 
   final String tag;
@@ -43,6 +44,7 @@ class FormTextFieldAndButton extends StatelessWidget {
   final Widget? suffix;
   final Function()? onPressed;
   final bool edit;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +63,9 @@ class FormTextFieldAndButton extends StatelessWidget {
       showErrorText: showErrorText,
       hintText: hintText,
       suffix: FormIconButton(
+        backgroundColor: backgroundColor,
         onPressed: () {
-          formController.addToScreenAnswer(
-            FormAnswer(
-              tag: tag,
-              edit: edit,
-            ),
-          );
+          formController.addToScreenAnswer(tag: tag, edit: edit);
         },
       ),
     );

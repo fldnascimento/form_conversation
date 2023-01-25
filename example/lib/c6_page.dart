@@ -41,38 +41,100 @@ class _C6PageState extends State<C6Page> {
           name: 'Nome',
           text: 'Digite seu nome',
           edit: false,
-          action: FormTextField(
-            tag: 'name',
-            formController: controller,
-            hintText: 'Digite seu nome',
-            suffix: FormIconButton(
-              onPressed: () {
-                controller.addToScreenAnswer(const FormAnswer(
-                  edit: true,
-                  tag: 'name',
-                ));
+          builder: (context, tag) {
+            return FormTextField(
+              tag: tag,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if ((value?.length ?? 0) <= 3) {
+                  return 'Erro!';
+                }
+                return null;
               },
-            ),
-          ),
+              formController: controller,
+              hintText: 'Digite seu nome',
+              suffix: FormIconButton(
+                backgroundColor: const Color(0xFFFCCD16),
+                onPressed: () {
+                  controller.addToScreenAnswer(edit: true, tag: tag);
+                },
+              ),
+            );
+          },
         ),
         FormAction(
           tag: 'cpf',
           name: 'CPF',
           text: 'Digite seu CPF',
-          action: FormTextFieldAndButton(
-            tag: 'cpf',
-            hintText: 'Informe seu CPF',
-            formController: controller,
-          ),
+          builder: (context, tag) {
+            return FormTextFieldAndButton(
+              tag: tag,
+              hintText: 'Informe seu CPF',
+              backgroundColor: const Color(0xFFFCCD16),
+              formController: controller,
+            );
+          },
         ),
         FormAction(
           tag: 'email',
           text: 'Digite seu e-mail',
           name: 'E-mail',
-          action: FormButton(
-            onPressed: () {},
-            label: 'SELECIONAR',
-          ),
+          builder: (context, tag) {
+            return FormButton(
+              backgroundColor: const Color(0xFFFCCD16),
+              onPressed: () {
+                FormModal.showModal(
+                  context: context,
+                  title: 'Selecione',
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ValueListenableBuilder<String>(
+                      valueListenable: controller.getValue(tag),
+                      builder: (context, value, child) {
+                        return Column(
+                          children: [
+                            RadioListTile(
+                              title: Text(
+                                "Abrir uma conta pessoal",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .shade50,
+                                ),
+                              ),
+                              value: "pressoal",
+                              groupValue: controller.getValue(tag),
+                              onChanged: (value) {
+                                controller.setValue(tag, value);
+                              },
+                            ),
+                            RadioListTile(
+                              title: Text(
+                                "Abrir uma conta para a minha empresa",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .shade50,
+                                ),
+                              ),
+                              value: "empresa",
+                              groupValue: controller.getValue(tag),
+                              onChanged: (value) {
+                                controller.setValue(tag, value);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+              label: 'SELECIONAR',
+            );
+          },
         ),
       ],
     );

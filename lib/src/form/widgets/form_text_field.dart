@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../form_conversation.dart';
+import '../../core/colors_util.dart';
 import '../constants/strings_constants.dart';
+import '../controllers/form/form_controller.dart';
 
 class FormTextField extends StatelessWidget {
   final String tag;
@@ -19,6 +20,8 @@ class FormTextField extends StatelessWidget {
   final Function()? onTap;
   final String? initialValue;
   final Widget? suffix;
+  final String? Function(String?)? validator;
+  final AutovalidateMode? autovalidateMode;
 
   const FormTextField({
     super.key,
@@ -36,18 +39,28 @@ class FormTextField extends StatelessWidget {
     this.initialValue,
     this.keyboardType,
     this.suffix,
+    this.validator,
+    this.autovalidateMode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.onPrimary,
+      ),
+      autovalidateMode: autovalidateMode,
       onTap: onTap,
       controller: controller,
       autofocus: autofocus,
       keyboardType: keyboardType,
       obscureText: obscureText,
       initialValue: initialValue,
+      cursorColor: Theme.of(context).colorScheme.primary.shade200,
+      validator: validator,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Theme.of(context).colorScheme.primary.shade400,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32),
           borderSide: const BorderSide(
@@ -58,9 +71,11 @@ class FormTextField extends StatelessWidget {
         prefix: const SizedBox(width: 16),
         suffixIcon: _suffix,
         hintText: hintText,
+        hintStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
+              color: Theme.of(context).colorScheme.primary.shade200,
+            ),
         errorStyle: !showErrorText
-            ? const TextStyle(
-                color: Colors.transparent, fontSize: 0, height: 0)
+            ? const TextStyle(color: Colors.transparent, fontSize: 0, height: 0)
             : const TextStyle(height: 0, wordSpacing: 1, fontSize: 10),
       ),
       inputFormatters: inputFormatters,

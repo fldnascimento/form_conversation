@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../../form_conversation.dart';
-import '../../core/controller_builder.dart';
+import '../controllers/form/form_controller.dart';
 import '../controllers/form/form_state.dart' as form;
+import '../models/form_action.dart';
 import '../models/form_base.dart';
+import '../../core/colors_util.dart';
+import '../../core/controller_builder.dart';
+import 'form_conversation.dart';
 import 'form_loading.dart';
 
 class FormWidgetBase extends StatefulWidget {
   final FormController controller;
   final List<FormBase> formItems;
+
   const FormWidgetBase({
     super.key,
     required this.controller,
@@ -29,8 +33,14 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text('FormBase'),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        centerTitle: false,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.close),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +54,7 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
                 child: ControllerBuilder<FormController, form.FormState>(
                   bloc: context.controller,
                   builder: (context, state) {
-                    if (state.status == FormStateStatus.editing) {
+                    if (state.status == form.FormStateStatus.editing) {
                       if (state.currentItem is! FormAction) {
                         widget.controller.buildNextItem();
                       }
@@ -67,19 +77,19 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
           ControllerBuilder<FormController, form.FormState>(
             bloc: context.controller,
             builder: (context, state) {
-              if (state.status == FormStateStatus.editing) {
+              if (state.status == form.FormStateStatus.editing) {
                 final currentItem = state.currentItem;
                 if (currentItem is FormAction) {
                   return Container(
-                    color: Color(
-                        getColor(Theme.of(context).colorScheme.primary.value)),
+                    margin: const EdgeInsets.only(top: 16),
+                    color: Theme.of(context).colorScheme.primary.shade800,
                     padding: const EdgeInsets.all(8),
-                    child: currentItem.action,
+                    child: currentItem.builder(context, currentItem.tag),
                   );
                 }
               }
               return Visibility(
-                visible: state.status == FormStateStatus.loading,
+                visible: state.status == form.FormStateStatus.loading,
                 child: const Center(
                   child: FormLoading(),
                 ),
@@ -89,33 +99,5 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
         ],
       ),
     );
-  }
-
-  int getColor(int value) {
-    final hexColor = value.toRadixString(16).substring(2);
-    final red = hexColor.substring(0, 2);
-    final green = hexColor.substring(2, 4);
-    final blue = hexColor.substring(4);
-
-    print(red);
-    print(green);
-    print(blue);
-
-    int redDec = int.parse(red, radix: 16);
-    redDec -= 194;
-    final newred = redDec.toRadixString(16).replaceAll('-', '');
-
-    int greenDec = int.parse(green, radix: 16);
-    greenDec -= 92;
-    final newGreen = greenDec.toRadixString(16);
-
-    int blueDec = int.parse(blue, radix: 16);
-    blueDec -= 10;
-    final newBlue = blueDec.toRadixString(16);
-
-    final newColor = "ff$newred$newGreen$newBlue";
-    print(newColor);
-
-    return int.parse(newColor, radix: 16);
   }
 }

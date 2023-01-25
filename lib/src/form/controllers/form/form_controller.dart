@@ -82,8 +82,8 @@ class FormController extends Controller<FormState> {
         .first;
   }
 
-  ValueNotifier getValue(String tag) {
-    return state.values[tag]!;
+  ValueNotifier<T> getValue<T>(String tag) {
+    return state.values[tag]! as ValueNotifier<T>;
   }
 
   void setValue<T>(String? tag, T value) {
@@ -114,20 +114,26 @@ class FormController extends Controller<FormState> {
     return notItemLast;
   }
 
-  void addToScreenAnswer(FormAnswer answer) {
-    if (!_isEdit(answer.tag)) {
+  void addToScreenAnswer({String? tag, String? text, required bool edit}) {
+    if (!_isEdit(tag)) {
       emit(
         state.copyWith(
           formScreenItems: [
             ...state.formScreenItems,
-            FormScreenItemModel(widget: answer),
+            FormScreenItemModel(
+              widget: FormAnswer(
+                tag: tag,
+                text: text,
+                edit: edit,
+              ),
+            ),
           ],
           status: FormStateStatus.editing,
         ),
       );
       buildNextItem();
     } else {
-      state.values[answer.tag]?.value = getValue(StringConstants.tagEdit).value;
+      state.values[tag]?.value = getValue(StringConstants.tagEdit).value;
       _popModalEdit();
     }
   }
