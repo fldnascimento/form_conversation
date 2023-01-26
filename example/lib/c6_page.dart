@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_conversation/form_conversation.dart';
+
+import 'cpf_input_formatter.dart';
+import 'cpf_validator.dart';
 
 class C6Page extends StatefulWidget {
   const C6Page({super.key});
@@ -44,10 +48,14 @@ class _C6PageState extends State<C6Page> {
           builder: (context, tag) {
             return FormTextField(
               tag: tag,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CpfInputFormatter()
+              ],
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
-                if ((value?.length ?? 0) <= 3) {
-                  return 'Erro!';
+                if (!CPFValidator.isValid(value)) {
+                  return '';
                 }
                 return null;
               },
@@ -70,6 +78,17 @@ class _C6PageState extends State<C6Page> {
             return FormTextFieldAndButton(
               tag: tag,
               hintText: 'Informe seu CPF',
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CpfInputFormatter()
+              ],
+              validator: (value) {
+                if (!CPFValidator.isValid(value)) {
+                  return '';
+                }
+                return null;
+              },
               backgroundColor: const Color(0xFFFCCD16),
               formController: controller,
             );
