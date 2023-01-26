@@ -48,17 +48,6 @@ class _C6PageState extends State<C6Page> {
           builder: (context, tag) {
             return FormTextField(
               tag: tag,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                CpfInputFormatter()
-              ],
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) {
-                if (!CPFValidator.isValid(value)) {
-                  return '';
-                }
-                return null;
-              },
               formController: controller,
               hintText: 'Digite seu nome',
               suffix: FormIconButton(
@@ -113,35 +102,57 @@ class _C6PageState extends State<C6Page> {
                         return Column(
                           children: [
                             RadioListTile(
+                              activeColor: const Color(0xFFFCCD16),
+                              controlAffinity: ListTileControlAffinity.trailing,
                               title: Text(
                                 "Abrir uma conta pessoal",
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .shade50,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .shade50,
+                                    ),
                               ),
                               value: "pressoal",
-                              groupValue: controller.getValue(tag),
+                              groupValue: value,
                               onChanged: (value) {
                                 controller.setValue(tag, value);
                               },
                             ),
                             RadioListTile(
+                              activeColor: const Color(0xFFFCCD16),
+                              controlAffinity: ListTileControlAffinity.trailing,
                               title: Text(
                                 "Abrir uma conta para a minha empresa",
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .shade50,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .shade50,
+                                    ),
                               ),
                               value: "empresa",
-                              groupValue: controller.getValue(tag),
+                              groupValue: value,
                               onChanged: (value) {
                                 controller.setValue(tag, value);
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            FormButton(
+                              backgroundColor: const Color(0xFFFCCD16),
+                              label: 'CONFIRMAR',
+                              onPressed: () {
+                                Navigator.pop(context);
+                                controller.addToScreenAnswer(
+                                  tag: tag,
+                                  edit: false,
+                                );
                               },
                             ),
                           ],
@@ -152,6 +163,19 @@ class _C6PageState extends State<C6Page> {
                 );
               },
               label: 'SELECIONAR',
+            );
+          },
+        ),
+        FormAction(
+          tag: 'apelido',
+          name: 'Apelido',
+          text: 'Me fala seu apelido',
+          builder: (context, tag) {
+            return FormTextFieldAndButton(
+              tag: tag,
+              hintText: 'Digite seu apelido',
+              backgroundColor: const Color(0xFFFCCD16),
+              formController: controller,
             );
           },
         ),

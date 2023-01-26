@@ -114,7 +114,7 @@ class FormController extends Controller<FormState> {
     return notItemLast;
   }
 
-  void addToScreenAnswer({String? tag, String? text, required bool edit}) {
+  void addToScreenAnswer({required String tag, String? text, required bool edit}) {
     if (!_isEdit(tag)) {
       emit(
         state.copyWith(

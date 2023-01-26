@@ -26,6 +26,8 @@ class FormTextFieldAndButton extends StatelessWidget {
     this.onPressed,
     this.edit = true,
     this.backgroundColor,
+    this.autovalidateMode,
+    this.validator,
   });
 
   final String tag;
@@ -45,11 +47,15 @@ class FormTextFieldAndButton extends StatelessWidget {
   final Function()? onPressed;
   final bool edit;
   final Color? backgroundColor;
+  final String? Function(String?)? validator;
+  final AutovalidateMode? autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
     return FormTextField(
       tag: tag,
+      autovalidateMode: autovalidateMode,
+      validator: validator,
       formController: formController,
       autofocus: autofocus,
       controller: controller,
