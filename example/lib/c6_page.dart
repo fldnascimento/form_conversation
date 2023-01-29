@@ -37,56 +37,10 @@ class _C6PageState extends State<C6Page> {
           text:
               'Para começar, separe seu documento de identidade com foto. A abertura da sua conta é rápida e leva poucos minutos.',
         ),
-        FormMessage(
+        FormAction(
+          tag: 'account_type',
+          name: 'Tipo de conta',
           text: 'Primeiro, qual tipo de conta você quer abrir?',
-        ),
-        FormAction(
-          tag: 'name',
-          name: 'Nome',
-          text: 'Digite seu nome',
-          edit: false,
-          builder: (context, tag) {
-            return FormTextField(
-              tag: tag,
-              formController: controller,
-              hintText: 'Digite seu nome',
-              suffix: FormIconButton(
-                backgroundColor: const Color(0xFFFCCD16),
-                onPressed: () {
-                  controller.addToScreenAnswer(edit: true, tag: tag);
-                },
-              ),
-            );
-          },
-        ),
-        FormAction(
-          tag: 'cpf',
-          name: 'CPF',
-          text: 'Digite seu CPF',
-          builder: (context, tag) {
-            return FormTextFieldAndButton(
-              tag: tag,
-              hintText: 'Informe seu CPF',
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                CpfInputFormatter()
-              ],
-              validator: (value) {
-                if (!CPFValidator.isValid(value)) {
-                  return '';
-                }
-                return null;
-              },
-              backgroundColor: const Color(0xFFFCCD16),
-              formController: controller,
-            );
-          },
-        ),
-        FormAction(
-          tag: 'email',
-          text: 'Digite seu e-mail',
-          name: 'E-mail',
           builder: (context, tag) {
             return FormButton(
               backgroundColor: const Color(0xFFFCCD16),
@@ -116,7 +70,7 @@ class _C6PageState extends State<C6Page> {
                                           .shade50,
                                     ),
                               ),
-                              value: "pressoal",
+                              value: "Abrir uma conta pessoal",
                               groupValue: value,
                               onChanged: (value) {
                                 controller.setValue(tag, value);
@@ -137,7 +91,7 @@ class _C6PageState extends State<C6Page> {
                                           .shade50,
                                     ),
                               ),
-                              value: "empresa",
+                              value: "Abrir uma conta para a minha empresa",
                               groupValue: value,
                               onChanged: (value) {
                                 controller.setValue(tag, value);
@@ -151,7 +105,7 @@ class _C6PageState extends State<C6Page> {
                                 Navigator.pop(context);
                                 controller.addToScreenAnswer(
                                   tag: tag,
-                                  edit: false,
+                                  edit: true,
                                 );
                               },
                             ),
@@ -167,6 +121,64 @@ class _C6PageState extends State<C6Page> {
           },
         ),
         FormAction(
+          tag: 'name',
+          name: 'Nome',
+          text: 'Digite seu nome',
+          edit: false,
+          builder: (context, tag) {
+            return FormTextFieldAndButton(
+              tag: tag,
+              hintText: 'Digite seu nome',
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.length <= 3) {
+                  return '';
+                }
+                return null;
+              },
+              backgroundColor: const Color(0xFFFCCD16),
+              formController: controller,
+            );
+          },
+        ),
+        FormAction(
+          tag: 'cpf',
+          name: 'CPF',
+          text: 'Digite seu CPF',
+          builder: (context, tag) {
+            return FormTextFieldAndButton(
+              tag: tag,
+              hintText: 'Informe seu CPF',
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CpfInputFormatter()
+              ],
+              validator: (value) {
+                if (!CPFValidator.isValid(value)) {
+                  return '';
+                }
+                return null;
+              },
+              backgroundColor: const Color(0xFFFCCD16),
+              formController: controller,
+            );
+          },
+        ),
+        FormAction(
+          tag: 'email',
+          text: 'Informe seu e-mail',
+          name: 'E-mail',
+          builder: (context, tag) {
+            return FormTextFieldAndButton(
+              tag: tag,
+              hintText: 'Digite aqui seu e-mail',
+              backgroundColor: const Color(0xFFFCCD16),
+              formController: controller,
+            );
+          },
+        ),
+        FormAction(
           tag: 'apelido',
           name: 'Apelido',
           text: 'Me fala seu apelido',
@@ -178,6 +190,21 @@ class _C6PageState extends State<C6Page> {
               formController: controller,
             );
           },
+        ),
+        FormMessage(
+          text:
+              'Cadastro finalizado!\nRevise seus dados e envie suas informações.',
+        ),
+        FormWidget(
+          delay: 2000,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            child: FormButton(
+              label: 'ENVIAR INFORMAÇÕES',
+              backgroundColor: const Color(0xFFFCCD16),
+              onPressed: () {},
+            ),
+          ),
         ),
       ],
     );

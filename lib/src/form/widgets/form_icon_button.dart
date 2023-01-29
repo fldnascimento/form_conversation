@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../core/colors_util.dart';
+import 'package:form_conversation/src/core/colors_util.dart';
 
 class FormIconButton extends StatelessWidget {
   final Function()? onPressed;
@@ -20,14 +19,18 @@ class FormIconButton extends StatelessWidget {
       height: 42,
       width: 42,
       child: RawMaterialButton(
-        fillColor: backgroundColor ?? Theme.of(context).colorScheme.primary,
+        fillColor: onPressed == null
+            ? Colors.grey.shade600
+            : (backgroundColor ?? Theme.of(context).colorScheme.primary),
         elevation: 0.0,
         shape: const CircleBorder(),
         onPressed: onPressed,
         child: icon ??
             Icon(
               Icons.send,
-              color: Theme.of(context).colorScheme.primary,
+              color: onPressed == null
+                  ? Colors.grey.shade600.shade800
+                  : Theme.of(context).colorScheme.primary,
               size: 18,
             ),
       ),

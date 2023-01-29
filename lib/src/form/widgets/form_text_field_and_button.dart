@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../controllers/form/form_controller.dart';
-import 'form_answer.dart';
 import 'form_icon_button.dart';
 import 'form_text_field.dart';
 
-class FormTextFieldAndButton extends StatelessWidget {
+class FormTextFieldAndButton extends StatefulWidget {
   const FormTextFieldAndButton({
     super.key,
     required this.tag,
@@ -28,6 +27,7 @@ class FormTextFieldAndButton extends StatelessWidget {
     this.backgroundColor,
     this.autovalidateMode,
     this.validator,
+    this.validateIfIsEmpty = true,
   });
 
   final String tag;
@@ -49,30 +49,58 @@ class FormTextFieldAndButton extends StatelessWidget {
   final Color? backgroundColor;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
+  final bool validateIfIsEmpty;
+
+  @override
+  State<FormTextFieldAndButton> createState() => _FormTextFieldAndButtonState();
+}
+
+class _FormTextFieldAndButtonState extends State<FormTextFieldAndButton> {
+  final _formKey = GlobalKey<FormState>();
+  bool _enableBtn = false;
 
   @override
   Widget build(BuildContext context) {
-    return FormTextField(
-      tag: tag,
-      autovalidateMode: autovalidateMode,
-      validator: validator,
-      formController: formController,
-      autofocus: autofocus,
-      controller: controller,
-      initialValue: initialValue,
-      inputFormatters: inputFormatters,
-      keyboardType: keyboardType,
-      margin: margin,
-      obscureText: obscureText,
-      onChanged: onChanged,
-      onTap: onTap,
-      showErrorText: showErrorText,
-      hintText: hintText,
-      suffix: FormIconButton(
-        backgroundColor: backgroundColor,
-        onPressed: () {
-          formController.addToScreenAnswer(tag: tag, edit: edit);
+    return Form(
+      key: _formKey,
+      onChanged: () => setState(
+        () => _enableBtn = _formKey.currentState?.validate() ?? false,
+      ),
+      child: FormTextField(
+        tag: widget.tag,
+        autovalidateMode: widget.autovalidateMode,
+        validator: widget.validator,
+        formController: widget.formController,
+        autofocus: widget.autofocus,
+        controller: widget.controller,
+        initialValue: widget.initialValue,
+        inputFormatters: widget.inputFormatters,
+        keyboardType: widget.keyboardType,
+        margin: widget.margin,
+        obscureText: widget.obscureText,
+        onChanged: (value) {
+          if (widget.validateIfIsEmpty) {
+            if (value.isEmpty) {
+              _enableBtn = false;
+            }
+          }
+
+          if (widget.onChanged != null) {
+            widget.onChanged!(value);
+          }
         },
+        onTap: widget.onTap,
+        showErrorText: widget.showErrorText,
+        hintText: widget.hintText,
+        suffix: FormIconButton(
+          backgroundColor: widget.backgroundColor,
+          onPressed: !_enableBtn
+              ? null
+              : () {
+                  widget.formController
+                      .addToScreenAnswer(tag: widget.tag, edit: widget.edit);
+                },
+        ),
       ),
     );
   }

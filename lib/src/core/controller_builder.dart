@@ -6,18 +6,18 @@ typedef ControllerWidgetBuilder<S> = Widget Function(
 
 class ControllerBuilder<B extends Controller<S>, S> extends StatelessWidget {
   final ControllerWidgetBuilder<S> builder;
-  final B bloc;
+  final B controller;
 
   const ControllerBuilder({
     super.key,
     required this.builder,
-    required this.bloc,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<S>(
-      valueListenable: bloc,
+      valueListenable: controller,
       builder: (context, value, child) => builder(context, value),
     );
   }

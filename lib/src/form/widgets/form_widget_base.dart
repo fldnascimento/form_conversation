@@ -52,7 +52,7 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
                 alignment: Alignment.bottomLeft,
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 child: ControllerBuilder<FormController, form.FormState>(
-                  bloc: context.controller,
+                  controller: context.controller,
                   builder: (context, state) {
                     if (state.status == form.FormStateStatus.editing) {
                       if (state.currentItem is! FormAction) {
@@ -75,7 +75,7 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
             ),
           ),
           ControllerBuilder<FormController, form.FormState>(
-            bloc: context.controller,
+            controller: context.controller,
             builder: (context, state) {
               if (state.status == form.FormStateStatus.editing) {
                 final currentItem = state.currentItem;
