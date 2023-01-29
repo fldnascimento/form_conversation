@@ -85,7 +85,7 @@ abstract class FormModal {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: formItem.builder(context, formItem.tag),
+                    child: formItem.builder(context, formItem.tag, formItem.edit),
                   ),
                 ],
               ),

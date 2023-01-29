@@ -84,7 +84,7 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
                     margin: const EdgeInsets.only(top: 16),
                     color: Theme.of(context).colorScheme.primary.shade800,
                     padding: const EdgeInsets.all(8),
-                    child: currentItem.builder(context, currentItem.tag),
+                    child: currentItem.builder(context, currentItem.tag, currentItem.edit),
                   );
                 }
               }

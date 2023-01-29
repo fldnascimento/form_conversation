@@ -6,6 +6,7 @@ import 'form_base.dart';
 typedef ActionBuilder = Widget Function(
   BuildContext context,
   String tag,
+  bool edit,
 );
 
 class FormAction extends FormBase {

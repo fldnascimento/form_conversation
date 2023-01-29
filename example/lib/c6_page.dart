@@ -41,7 +41,8 @@ class _C6PageState extends State<C6Page> {
           tag: 'account_type',
           name: 'Tipo de conta',
           text: 'Primeiro, qual tipo de conta você quer abrir?',
-          builder: (context, tag) {
+          edit: false,
+          builder: (context, tag, edit) {
             return FormButton(
               backgroundColor: const Color(0xFFFCCD16),
               onPressed: () {
@@ -105,7 +106,7 @@ class _C6PageState extends State<C6Page> {
                                 Navigator.pop(context);
                                 controller.addToScreenAnswer(
                                   tag: tag,
-                                  edit: true,
+                                  edit: edit,
                                 );
                               },
                             ),
@@ -125,9 +126,10 @@ class _C6PageState extends State<C6Page> {
           name: 'Nome',
           text: 'Digite seu nome',
           edit: false,
-          builder: (context, tag) {
+          builder: (context, tag, edit) {
             return FormTextFieldAndButton(
               tag: tag,
+              edit: edit,
               hintText: 'Digite seu nome',
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
@@ -145,9 +147,10 @@ class _C6PageState extends State<C6Page> {
           tag: 'cpf',
           name: 'CPF',
           text: 'Digite seu CPF',
-          builder: (context, tag) {
+          builder: (context, tag, edit) {
             return FormTextFieldAndButton(
               tag: tag,
+              edit: edit,
               hintText: 'Informe seu CPF',
               autovalidateMode: AutovalidateMode.onUserInteraction,
               inputFormatters: [
@@ -169,9 +172,10 @@ class _C6PageState extends State<C6Page> {
           tag: 'email',
           text: 'Informe seu e-mail',
           name: 'E-mail',
-          builder: (context, tag) {
+          builder: (context, tag, edit) {
             return FormTextFieldAndButton(
               tag: tag,
+              edit: edit,
               hintText: 'Digite aqui seu e-mail',
               backgroundColor: const Color(0xFFFCCD16),
               formController: controller,
@@ -182,9 +186,10 @@ class _C6PageState extends State<C6Page> {
           tag: 'apelido',
           name: 'Apelido',
           text: 'Me fala seu apelido',
-          builder: (context, tag) {
+          builder: (context, tag, edit) {
             return FormTextFieldAndButton(
               tag: tag,
+              edit: edit,
               hintText: 'Digite seu apelido',
               backgroundColor: const Color(0xFFFCCD16),
               formController: controller,
