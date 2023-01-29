@@ -18,39 +18,48 @@ class FormAnswer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 250),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            const SizedBox(width: 10),
-            if (tag != null)
-              ValueListenableBuilder(
-                valueListenable: context.controller.getValue(tag!),
-                builder: (context, value, child) => AnswerCard(text: value),
-              )
-            else
-              AnswerCard(text: text!),
-            Visibility(
-              visible: edit,
-              child: TextButton(
-                onPressed: () {
-                  FormModal.showModalEdit(context: context, tag: tag!);
-                },
-                child: Text(
-                  'Alterar',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.2,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const SizedBox(width: 10),
+                  if (tag != null)
+                    ValueListenableBuilder(
+                      valueListenable: context.controller.getValue(tag!),
+                      builder: (context, value, child) => AnswerCard(text: value),
+                    )
+                  else
+                    AnswerCard(text: text!),
+                  Visibility(
+                    visible: edit,
+                    child: TextButton(
+                      onPressed: () {
+                        FormModal.showModalEdit(context: context, tag: tag!);
+                      },
+                      child: Text(
+                        'Alterar',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.2,
+                            ),
                       ),
-                ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -76,7 +85,6 @@ class AnswerCard extends StatelessWidget {
       color: Theme.of(context).colorScheme.primary.shade50,
       elevation: 0,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 250),
         margin: const EdgeInsets.all(10),
         child: Text(
           text,
