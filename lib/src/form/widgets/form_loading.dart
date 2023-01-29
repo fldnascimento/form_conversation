@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../core/colors_util.dart';
+import '../../core/color_shade.dart';
 import 'form_card.dart';
 
 class FormLoading extends StatefulWidget {

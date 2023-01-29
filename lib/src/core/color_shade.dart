@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class ColorsUtil {
+abstract class ColorShade {
   static String hexFromArgb(double a, double r, double g, double b) {
     return '${a.round().toRadixString(16).padLeft(2, '0').toUpperCase()}'
         '${r.round().toRadixString(16).padLeft(2, '0').toUpperCase()}'
@@ -53,9 +53,9 @@ abstract class ColorsUtil {
   }
 }
 
-extension ColorExtension on Color {
+extension ColorShadeExtension on Color {
   Map<int, Color> get shades {
-    return ColorsUtil.shades(this);
+    return ColorShade.shades(this);
   }
 
   Color get shade50 => shades[50]!;

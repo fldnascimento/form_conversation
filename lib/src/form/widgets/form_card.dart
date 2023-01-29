@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/colors_util.dart';
+import '../../core/color_shade.dart';
 
 class FormCard extends StatelessWidget {
   final String? text;

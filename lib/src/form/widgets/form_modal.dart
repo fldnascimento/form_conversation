@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:form_conversation/src/core/colors_util.dart';
+import 'package:form_conversation/src/core/color_shade.dart';
 import 'package:form_conversation/src/form/constants/strings_constants.dart';
 import 'package:form_conversation/src/form/widgets/form_conversation.dart';
 

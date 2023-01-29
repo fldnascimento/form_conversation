@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/colors_util.dart';
+import '../../core/color_shade.dart';
 import '../constants/strings_constants.dart';
 import '../controllers/form/form_controller.dart';
 
