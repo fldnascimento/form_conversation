@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:form_conversation/src/core/color_shade.dart';
+
+import '../style/form_button_style.dart';
+import 'form_inherited_widget.dart';
 
 class FormButton extends StatelessWidget {
   final void Function()? onPressed;
@@ -15,24 +17,19 @@ class FormButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormButtonStyle>();
+
     return SizedBox(
-      width: double.infinity,
-      height: 40,
+      width: theme.width,
+      height: theme.height,
       child: ElevatedButton(
-        style: ButtonStyle(
+        style: theme.buttonStyle?.copyWith(
           backgroundColor: MaterialStateProperty.all<Color?>(backgroundColor),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
         ),
         onPressed: onPressed,
         child: Text(
           label,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.primary.shade600,
-          ),
+          style: theme.style,
         ),
       ),
     );

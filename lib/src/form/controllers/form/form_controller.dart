@@ -92,6 +92,10 @@ class FormController extends Controller<FormState> {
     }
   }
 
+  void setValueEdit<T>(T value) {
+    state.values[StringConstants.tagEdit]?.value = value;
+  }
+
   void buildNextItem() {
     // first item
     if (state.formScreenItems.isEmpty) {
@@ -114,7 +118,8 @@ class FormController extends Controller<FormState> {
     return notItemLast;
   }
 
-  void addToScreenAnswer({required String tag, String? text, required bool edit}) {
+  void addToScreenAnswer(
+      {required String tag, String? text, required bool edit}) {
     if (!_isEdit(tag)) {
       emit(
         state.copyWith(

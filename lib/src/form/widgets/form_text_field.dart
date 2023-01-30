@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../core/color_shade.dart';
-import '../constants/strings_constants.dart';
 import '../controllers/form/form_controller.dart';
 
 class FormTextField extends StatelessWidget {
@@ -81,7 +80,7 @@ class FormTextField extends StatelessWidget {
       inputFormatters: inputFormatters,
       onChanged: (value) {
         formController.setValue(tag, value);
-        formController.setValue(StringConstants.tagEdit, value);
+        formController.setValueEdit(value);
         if (onChanged != null) {
           onChanged!(value);
         }

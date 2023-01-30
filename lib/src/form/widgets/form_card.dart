@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/color_shade.dart';
+import '../style/form_card_style.dart';
+import 'form_inherited_widget.dart';
 
 class FormCard extends StatelessWidget {
   final String? text;
@@ -14,27 +15,20 @@ class FormCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormCardStyle>();
+
     return Card(
-      margin: const EdgeInsets.only(top: 3, bottom: 3),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(15.0),
-          topLeft: Radius.circular(15.0),
-          bottomRight: Radius.circular(15.0),
-        ),
-      ),
-      color: Theme.of(context).colorScheme.primary,
-      elevation: 0,
+      margin: theme.margin,
+      shape: theme.shape,
+      color: theme.color,
+      elevation: theme.elevation,
       child: widget ??
           Container(
-            constraints: const BoxConstraints(maxWidth: 250),
-            padding: const EdgeInsets.all(12),
+            constraints: theme.constraints,
+            padding: theme.padding,
             child: Text(
               text!,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary.shade50,
-                letterSpacing: 0.2,
-              ),
+              style: theme.style,
             ),
           ),
     );

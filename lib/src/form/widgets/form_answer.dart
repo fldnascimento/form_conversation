@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/color_shade.dart';
-import 'form_conversation.dart';
+import '../style/form_answer_style.dart';
+import 'form_inherited_widget.dart';
 import 'form_modal.dart';
 
 class FormAnswer extends StatelessWidget {
@@ -18,10 +18,12 @@ class FormAnswer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormAnswerStyle>();
+
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 250),
+        constraints: theme.constraints,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
@@ -34,7 +36,8 @@ class FormAnswer extends StatelessWidget {
                   if (tag != null)
                     ValueListenableBuilder(
                       valueListenable: context.controller.getValue(tag!),
-                      builder: (context, value, child) => AnswerCard(text: value),
+                      builder: (context, value, child) =>
+                          AnswerCard(text: value),
                     )
                   else
                     AnswerCard(text: text!),
@@ -45,12 +48,8 @@ class FormAnswer extends StatelessWidget {
                         FormModal.showModalEdit(context: context, tag: tag!);
                       },
                       child: Text(
-                        'Alterar',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.2,
-                            ),
+                        theme.textButton ?? '',
+                        style: theme.textButtonStyle,
                       ),
                     ),
                   ),
@@ -73,25 +72,17 @@ class AnswerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormAnswerStyle>();
+
     return Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(15.0),
-          topLeft: Radius.circular(15.0),
-          bottomLeft: Radius.circular(15.0),
-          bottomRight: Radius.circular(15.0),
-        ),
-      ),
-      color: Theme.of(context).colorScheme.primary.shade50,
-      elevation: 0,
+      shape: theme.shape,
+      color: theme.color,
+      elevation: theme.elevation,
       child: Container(
-        margin: const EdgeInsets.all(10),
+        margin: theme.margin,
         child: Text(
           text,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
-            fontWeight: FontWeight.bold,
-          ),
+          style: theme.style,
         ),
       ),
     );

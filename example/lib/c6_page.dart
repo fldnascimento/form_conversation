@@ -22,9 +22,21 @@ class _C6PageState extends State<C6Page> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FormConversation(
       controller: controller,
+      // formCardStyle: FormCardStyle(
+      //   color: Colors.green.shade900.shade900.shade900,
+      // ),
+      // formAnswerStyle: const FormAnswerStyle(
+      //   color: Colors.amber
+      // ),
       formItems: [
         FormMessage(
           delay: 1000,
@@ -42,7 +54,7 @@ class _C6PageState extends State<C6Page> {
           name: 'Tipo de conta',
           text: 'Primeiro, qual tipo de conta você quer abrir?',
           edit: false,
-          builder: (context, tag, edit) {
+          builder: (_, tag, edit) {
             return FormButton(
               backgroundColor: const Color(0xFFFCCD16),
               onPressed: () {
@@ -53,7 +65,7 @@ class _C6PageState extends State<C6Page> {
                     padding: const EdgeInsets.all(8.0),
                     child: ValueListenableBuilder<String>(
                       valueListenable: controller.getValue(tag),
-                      builder: (context, value, child) {
+                      builder: (_, value, child) {
                         return Column(
                           children: [
                             RadioListTile(

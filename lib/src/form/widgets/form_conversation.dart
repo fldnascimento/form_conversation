@@ -1,37 +1,44 @@
 import 'package:flutter/material.dart';
 
-import '../models/form_base.dart';
 import '../controllers/form/form_controller.dart';
+import '../models/form_base.dart';
+import '../style/form_answer_style.dart';
+import '../style/form_button_style.dart';
+import '../style/form_card_style.dart';
+import 'form_inherited_widget.dart';
 import 'form_widget_base.dart';
 
-class FormConversation extends InheritedWidget {
+class FormConversation extends StatelessWidget {
   final FormController controller;
 
   final List<FormBase> formItems;
+  final FormCardStyle? formCardStyle;
+  final FormAnswerStyle? formAnswerStyle;
+  final FormButtonStyle? formButtonStyle;
 
-  FormConversation({
-    super.key,
+  const FormConversation({
+    Key? key,
     required this.controller,
     required this.formItems,
-  }) : super(
-          child: FormWidgetBase(
-            controller: controller,
-            formItems: formItems,
-          ),
-        );
+    this.formCardStyle,
+    this.formAnswerStyle,
+    this.formButtonStyle,
+  }) : super(key: key);
 
   @override
-  bool updateShouldNotify(covariant FormConversation oldWidget) {
-    return oldWidget.controller != controller;
-  }
-
-  static FormConversation? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<FormConversation>();
-  }
-}
-
-extension ReadContext on BuildContext {
-  FormController get controller {
-    return FormConversation.of(this)!.controller;
+  Widget build(BuildContext context) {
+    return FormInheritedWidget(
+      controller: controller,
+      formItems: formItems,
+      styles: [
+        FormCardStyle.defaultTheme(context).merge(formCardStyle),
+        FormAnswerStyle.defaultTheme(context).merge(formAnswerStyle),
+        FormButtonStyle.defaultTheme(context).merge(formButtonStyle),
+      ],
+      child: FormWidgetBase(
+        controller: controller,
+        formItems: formItems,
+      ),
+    );
   }
 }

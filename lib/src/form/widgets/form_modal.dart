@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:form_conversation/src/core/color_shade.dart';
-import 'package:form_conversation/src/form/constants/strings_constants.dart';
-import 'package:form_conversation/src/form/widgets/form_conversation.dart';
+
+import '../../core/color_shade.dart';
+import '../constants/strings_constants.dart';
+import 'form_inherited_widget.dart';
 
 abstract class FormModal {
   static void showModal({
