@@ -42,6 +42,10 @@ class _C6PageState extends State<C6Page> {
       //   backgroundColorDisabled: Colors.amber.shade900,
       //   iconColorDisabled: Colors.amber.shade700
       // ),
+      // formLoadingStyle: FormLoadingStyle(
+      //   brightColor: Color(0xFFFFFFFF),
+      //   darkColor: Color(0xFF222222),
+      // ),
       formItems: [
         FormMessage(
           delay: 1000,
@@ -142,7 +146,7 @@ class _C6PageState extends State<C6Page> {
           tag: 'name',
           name: 'Nome',
           text: 'Digite seu nome',
-          edit: false,
+          edit: true,
           builder: (context, tag, edit) {
             return FormTextFieldAndButton(
               tag: tag,

@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../core/color_shade.dart';
+import '../style/form_loading_style.dart';
 import 'form_card.dart';
+import 'form_inherited_widget.dart';
 
 class FormLoading extends StatefulWidget {
   const FormLoading({
@@ -85,6 +86,8 @@ class _FormLoadingState extends State<FormLoading>
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormLoadingStyle>();
+
     return AnimatedBuilder(
       animation: _indicatorSpaceAnimation,
       builder: (context, child) {
@@ -102,6 +105,8 @@ class _FormLoadingState extends State<FormLoading>
             bubble: StatusBubble(
               repeatingController: _repeatingController,
               dotIntervals: _dotIntervals,
+              brightColor: theme.brightColor,
+              darkColor: theme.darkColor,
             ),
           ),
         ],
@@ -149,10 +154,14 @@ class StatusBubble extends StatelessWidget {
     super.key,
     required this.repeatingController,
     required this.dotIntervals,
+    required this.brightColor,
+    required this.darkColor,
   });
 
   final AnimationController repeatingController;
   final List<Interval> dotIntervals;
+  final Color brightColor;
+  final Color darkColor;
 
   @override
   Widget build(BuildContext context) {
@@ -168,16 +177,22 @@ class StatusBubble extends StatelessWidget {
               index: 0,
               repeatingController: repeatingController,
               dotIntervals: dotIntervals,
+              brightColor: brightColor,
+              darkColor: darkColor,
             ),
             FlashingCircle(
               index: 1,
               repeatingController: repeatingController,
               dotIntervals: dotIntervals,
+              brightColor: brightColor,
+              darkColor: darkColor,
             ),
             FlashingCircle(
               index: 2,
               repeatingController: repeatingController,
               dotIntervals: dotIntervals,
+              brightColor: brightColor,
+              darkColor: darkColor,
             ),
           ],
         ),
@@ -192,11 +207,15 @@ class FlashingCircle extends StatelessWidget {
     required this.index,
     required this.repeatingController,
     required this.dotIntervals,
+    required this.brightColor,
+    required this.darkColor,
   });
 
   final int index;
   final AnimationController repeatingController;
   final List<Interval> dotIntervals;
+  final Color brightColor;
+  final Color darkColor;
 
   @override
   Widget build(BuildContext context) {
@@ -207,9 +226,6 @@ class FlashingCircle extends StatelessWidget {
           repeatingController.value,
         );
         final circleColorPercent = sin(pi * circleFlashPercent);
-
-        final brightColor = Theme.of(context).colorScheme.onPrimary;
-        final darkColor = Theme.of(context).colorScheme.primary.shade400;
 
         return Container(
           width: 10,
