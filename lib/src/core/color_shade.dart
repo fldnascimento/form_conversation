@@ -34,27 +34,30 @@ abstract class ColorShade {
     return Color(intFromHex(hex));
   }
 
-  static Map<int, Color> shades(Color colorBase) {
+  static MaterialColor shades(Color colorBase) {
     const baseLight = Color(0xFFFFFFFF);
     final baseDark = multiply(colorBase, colorBase);
 
-    return <int, Color>{
-      50: mixColors(baseLight, colorBase, 12),
-      100: mixColors(baseLight, colorBase, 30),
-      200: mixColors(baseLight, colorBase, 50),
-      300: mixColors(baseLight, colorBase, 70),
-      400: mixColors(baseLight, colorBase, 85),
-      500: colorBase,
-      600: mixColors(baseDark, colorBase, 87),
-      700: mixColors(baseDark, colorBase, 70),
-      800: mixColors(baseDark, colorBase, 54),
-      900: mixColors(baseDark, colorBase, 25),
-    };
+    return MaterialColor(
+      colorBase.value,
+      <int, Color>{
+        50: mixColors(baseLight, colorBase, 12),
+        100: mixColors(baseLight, colorBase, 30),
+        200: mixColors(baseLight, colorBase, 50),
+        300: mixColors(baseLight, colorBase, 70),
+        400: mixColors(baseLight, colorBase, 85),
+        500: colorBase,
+        600: mixColors(baseDark, colorBase, 87),
+        700: mixColors(baseDark, colorBase, 70),
+        800: mixColors(baseDark, colorBase, 54),
+        900: mixColors(baseDark, colorBase, 25),
+      },
+    );
   }
 }
 
 extension ColorShadeExtension on Color {
-  Map<int, Color> get shades {
+  MaterialColor get shades {
     return ColorShade.shades(this);
   }
 

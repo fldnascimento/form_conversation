@@ -22,28 +22,33 @@ abstract class FormModal {
       backgroundColor: Theme.of(context).colorScheme.background.shade400,
       context: context,
       builder: (BuildContext bc) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Visibility(
-                  visible: title != null && title.isNotEmpty,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text(
-                      title ?? '',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).colorScheme.primary.shade100,
+        return FormInheritedWidget(
+          controller: context.form.controller,
+          styles: context.form.styles,
+          formItems: context.form.formItems,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Visibility(
+                    visible: title != null && title.isNotEmpty,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        title ?? '',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).colorScheme.primary.shade100,
+                        ),
+                        textAlign: TextAlign.start,
                       ),
-                      textAlign: TextAlign.start,
                     ),
                   ),
-                ),
-                child,
-              ],
+                  child,
+                ],
+              ),
             ),
           ),
         );
@@ -86,7 +91,8 @@ abstract class FormModal {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: formItem.builder(context, formItem.tag, formItem.edit),
+                    child:
+                        formItem.builder(context, formItem.tag, formItem.edit),
                   ),
                 ],
               ),

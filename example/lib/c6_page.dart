@@ -54,7 +54,7 @@ class _C6PageState extends State<C6Page> {
           name: 'Tipo de conta',
           text: 'Primeiro, qual tipo de conta você quer abrir?',
           edit: false,
-          builder: (_, tag, edit) {
+          builder: (context, tag, edit) {
             return FormButton(
               backgroundColor: const Color(0xFFFCCD16),
               onPressed: () {
