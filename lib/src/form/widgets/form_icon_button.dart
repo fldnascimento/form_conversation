@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/color_shade.dart';
+import '../style/form_icon_button_style.dart';
+import 'form_inherited_widget.dart';
 
 class FormIconButton extends StatelessWidget {
   final Function()? onPressed;
@@ -16,23 +17,24 @@ class FormIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormIconButtonStyle>();
+
     return SizedBox(
-      height: 42,
-      width: 42,
+      height: theme.height,
+      width: theme.width,
       child: RawMaterialButton(
         fillColor: onPressed == null
-            ? Colors.grey.shade600
-            : (backgroundColor ?? Theme.of(context).colorScheme.primary),
-        elevation: 0.0,
+            ? theme.backgroundColorDisabled
+            : (backgroundColor ?? theme.backgroundColor),
+        elevation: theme.elevation,
         shape: const CircleBorder(),
         onPressed: onPressed,
         child: icon ??
             Icon(
               Icons.send,
-              color: onPressed == null
-                  ? Colors.grey.shade600.shade800
-                  : Theme.of(context).colorScheme.primary,
-              size: 18,
+              color:
+                  onPressed == null ? theme.iconColorDisabled : theme.iconColor,
+              size: theme.iconSize,
             ),
       ),
     );
