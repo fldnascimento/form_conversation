@@ -12,8 +12,10 @@ class FormAnswerStyle extends StyleBase<FormAnswerStyle> {
   final EdgeInsetsGeometry? margin;
   final Color? color;
   final double? elevation;
+  final EdgeInsetsGeometry padding;
 
   const FormAnswerStyle({
+    required this.padding,
     this.textButton,
     this.constraints,
     this.style,
@@ -34,6 +36,7 @@ class FormAnswerStyle extends StyleBase<FormAnswerStyle> {
     EdgeInsetsGeometry? margin,
     Color? color,
     double? elevation,
+    EdgeInsetsGeometry? padding,
   }) {
     return FormAnswerStyle(
       constraints: constraints ?? this.constraints,
@@ -44,6 +47,7 @@ class FormAnswerStyle extends StyleBase<FormAnswerStyle> {
       margin: margin ?? this.margin,
       color: color ?? this.color,
       shape: shape ?? this.shape,
+      padding: padding ?? this.padding,
     );
   }
 
@@ -62,6 +66,7 @@ class FormAnswerStyle extends StyleBase<FormAnswerStyle> {
       style: theme.style,
       textButton: theme.textButton,
       textButtonStyle: theme.textButtonStyle,
+      padding: theme.padding,
     );
   }
 
@@ -89,6 +94,7 @@ class FormAnswerStyle extends StyleBase<FormAnswerStyle> {
             fontWeight: FontWeight.bold,
             letterSpacing: 0.2,
           ),
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
     );
   }
 }

@@ -29,31 +29,33 @@ class FormAnswer extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const SizedBox(width: 10),
-                  if (tag != null)
-                    ValueListenableBuilder(
-                      valueListenable: context.controller.getValue(tag!),
-                      builder: (context, value, child) =>
-                          AnswerCard(text: value),
-                    )
-                  else
-                    AnswerCard(text: text!),
-                  Visibility(
-                    visible: edit,
-                    child: TextButton(
-                      onPressed: () {
-                        FormModal.showModalEdit(context: context, tag: tag!);
-                      },
-                      child: Text(
-                        theme.textButton ?? '',
-                        style: theme.textButtonStyle,
+              child: Padding(
+                padding: theme.padding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    if (tag != null)
+                      ValueListenableBuilder(
+                        valueListenable: context.controller.getValue(tag!),
+                        builder: (context, value, child) =>
+                            AnswerCard(text: value),
+                      )
+                    else
+                      AnswerCard(text: text!),
+                    Visibility(
+                      visible: edit,
+                      child: TextButton(
+                        onPressed: () {
+                          FormModal.showModalEdit(context: context, tag: tag!);
+                        },
+                        child: Text(
+                          theme.textButton ?? '',
+                          style: theme.textButtonStyle,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
