@@ -46,6 +46,14 @@ class _C6PageState extends State<C6Page> {
       //   brightColor: Color(0xFFFFFFFF),
       //   darkColor: Color(0xFF222222),
       // ),
+      formStyle: const FormStyle(
+        cardPadding: EdgeInsets.only(
+          left: 15,
+          right: 15,
+          bottom: 15,
+          top: 10,
+        ),
+      ),
       formIconButtonStyle: const FormIconButtonStyle(
         backgroundColor: Color(0xFFFCCD16),
       ),
@@ -89,6 +97,7 @@ class _C6PageState extends State<C6Page> {
                                     .textTheme
                                     .bodySmall
                                     ?.copyWith(
+                                      fontSize: 16,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .primary
@@ -110,6 +119,7 @@ class _C6PageState extends State<C6Page> {
                                     .textTheme
                                     .bodySmall
                                     ?.copyWith(
+                                      fontSize: 16,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .primary
@@ -123,16 +133,19 @@ class _C6PageState extends State<C6Page> {
                               },
                             ),
                             const SizedBox(height: 16),
-                            FormButton(
-                              backgroundColor: const Color(0xFFFCCD16),
-                              label: 'CONFIRMAR',
-                              onPressed: () {
-                                Navigator.pop(context);
-                                controller.addToScreenAnswer(
-                                  tag: tag,
-                                  edit: edit,
-                                );
-                              },
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FormButton(
+                                backgroundColor: const Color(0xFFFCCD16),
+                                label: 'CONFIRMAR',
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  controller.addToScreenAnswer(
+                                    tag: tag,
+                                    edit: edit,
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         );

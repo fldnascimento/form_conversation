@@ -81,7 +81,10 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
                     color: Theme.of(context).colorScheme.primary.shade800,
                     padding: theme.cardPadding,
                     child: currentItem.builder(
-                        context, currentItem.tag, currentItem.edit),
+                      context,
+                      currentItem.tag,
+                      currentItem.edit,
+                    ),
                   );
                 }
               }

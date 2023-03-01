@@ -75,6 +75,7 @@ class FormCardStyle extends StyleBase<FormCardStyle> {
       ),
       style: TextStyle(
         color: Theme.of(context).colorScheme.primary.shade50,
+        fontSize: 16,
         letterSpacing: 0.2,
       ),
       constraints: const BoxConstraints(maxWidth: 250),

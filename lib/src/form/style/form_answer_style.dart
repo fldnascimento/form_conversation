@@ -87,6 +87,7 @@ class FormAnswerStyle extends StyleBase<FormAnswerStyle> {
       style: TextStyle(
         color: Theme.of(context).colorScheme.primary,
         fontWeight: FontWeight.bold,
+        fontSize: 16,
       ),
       textButton: 'Alterar',
       textButtonStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
