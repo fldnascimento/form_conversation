@@ -46,6 +46,9 @@ class _C6PageState extends State<C6Page> {
       //   brightColor: Color(0xFFFFFFFF),
       //   darkColor: Color(0xFF222222),
       // ),
+      formIconButtonStyle: const FormIconButtonStyle(
+        backgroundColor: Color(0xFFFCCD16),
+      ),
       formItems: [
         FormMessage(
           delay: 1000,
@@ -159,7 +162,6 @@ class _C6PageState extends State<C6Page> {
                 }
                 return null;
               },
-              backgroundColor: const Color(0xFFFCCD16),
               formController: controller,
             );
           },
@@ -184,7 +186,6 @@ class _C6PageState extends State<C6Page> {
                 }
                 return null;
               },
-              backgroundColor: const Color(0xFFFCCD16),
               formController: controller,
             );
           },
@@ -198,7 +199,6 @@ class _C6PageState extends State<C6Page> {
               tag: tag,
               edit: edit,
               hintText: 'Digite aqui seu e-mail',
-              backgroundColor: const Color(0xFFFCCD16),
               formController: controller,
             );
           },
@@ -212,7 +212,6 @@ class _C6PageState extends State<C6Page> {
               tag: tag,
               edit: edit,
               hintText: 'Digite seu apelido',
-              backgroundColor: const Color(0xFFFCCD16),
               formController: controller,
             );
           },

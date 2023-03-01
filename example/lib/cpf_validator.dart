@@ -1,6 +1,7 @@
 import 'dart:math';
 
 class CPFValidator {
+  // ignore: constant_identifier_names
   static const List<String> BLACKLIST = [
     "00000000000",
     "11111111111",
@@ -15,13 +16,14 @@ class CPFValidator {
     "12345678909"
   ];
 
+  // ignore: constant_identifier_names
   static const STRIP_REGEX = r'[^\d]';
 
   // Compute the Verifier Digit (or "Dígito Verificador (DV)" in PT-BR).
   // You can learn more about the algorithm on [wikipedia (pt-br)](https://pt.wikipedia.org/wiki/D%C3%ADgito_verificador)
   static int _verifierDigit(String cpf) {
     List<int> numbers =
-    cpf.split("").map((number) => int.parse(number, radix: 10)).toList();
+        cpf.split("").map((number) => int.parse(number, radix: 10)).toList();
 
     int modulus = numbers.length + 1;
 

@@ -6,6 +6,7 @@ import '../controllers/form/form_controller.dart';
 import '../controllers/form/form_state.dart' as form;
 import '../models/form_action.dart';
 import '../models/form_base.dart';
+import '../style/form_style.dart';
 import 'form_inherited_widget.dart';
 import 'form_loading.dart';
 
@@ -32,16 +33,11 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormStyle>();
+
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.close),
-        ),
-      ),
+      backgroundColor: theme.backgroundColor,
+      appBar: theme.appBar,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,7 +46,7 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
               reverse: true,
               child: Container(
                 alignment: Alignment.bottomLeft,
-                margin: const EdgeInsets.only(left: 15, right: 15),
+                margin: theme.margin,
                 child: ControllerBuilder<FormController, form.FormState>(
                   controller: context.controller,
                   builder: (context, state) {
@@ -81,10 +77,11 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
                 final currentItem = state.currentItem;
                 if (currentItem is FormAction) {
                   return Container(
-                    margin: const EdgeInsets.only(top: 16),
+                    margin: theme.cardMargin,
                     color: Theme.of(context).colorScheme.primary.shade800,
-                    padding: const EdgeInsets.all(8),
-                    child: currentItem.builder(context, currentItem.tag, currentItem.edit),
+                    padding: theme.cardPadding,
+                    child: currentItem.builder(
+                        context, currentItem.tag, currentItem.edit),
                   );
                 }
               }

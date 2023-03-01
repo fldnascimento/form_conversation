@@ -6,13 +6,11 @@ import 'form_inherited_widget.dart';
 class FormIconButton extends StatelessWidget {
   final Function()? onPressed;
   final Widget? icon;
-  final Color? backgroundColor;
 
   const FormIconButton({
     super.key,
     this.icon,
     this.onPressed,
-    this.backgroundColor,
   });
 
   @override
@@ -25,7 +23,7 @@ class FormIconButton extends StatelessWidget {
       child: RawMaterialButton(
         fillColor: onPressed == null
             ? theme.backgroundColorDisabled
-            : (backgroundColor ?? theme.backgroundColor),
+            : theme.backgroundColor,
         elevation: theme.elevation,
         shape: const CircleBorder(),
         onPressed: onPressed,

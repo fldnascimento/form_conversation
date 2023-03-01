@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/color_shade.dart';
 import '../controllers/form/form_controller.dart';
+import '../style/form_text_field_style.dart';
+import 'form_inherited_widget.dart';
 
 class FormTextField extends StatelessWidget {
   final String tag;
@@ -12,8 +13,6 @@ class FormTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool autofocus;
   final TextInputType? keyboardType;
-  final bool showErrorText;
-  final EdgeInsetsGeometry? margin;
   final TextEditingController? controller;
   final bool obscureText;
   final Function()? onTap;
@@ -71,11 +70,9 @@ class FormTextField extends StatelessWidget {
     this.onChanged,
     this.inputFormatters,
     this.autofocus = false,
-    this.margin,
     this.controller,
     this.onTap,
     this.obscureText = false,
-    this.showErrorText = false,
     this.initialValue,
     this.keyboardType,
     this.suffix,
@@ -126,10 +123,10 @@ class FormTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.loadStyle<FormTextFieldStyle>();
+
     return TextFormField(
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.onPrimary,
-      ),
+      style: theme.style,
       autovalidateMode: autovalidateMode,
       onTap: onTap,
       controller: controller,
@@ -137,27 +134,11 @@ class FormTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       initialValue: initialValue,
-      cursorColor: Theme.of(context).colorScheme.primary.shade200,
+      cursorColor: theme.cursorColor,
       validator: validator,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Theme.of(context).colorScheme.primary.shade400,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(32),
-          borderSide: const BorderSide(
-            color: Colors.grey,
-            width: 1,
-          ),
-        ),
-        prefix: const SizedBox(width: 16),
-        suffixIcon: _suffix,
+      decoration: theme.decoration?.copyWith(
+        suffixIcon: _suffix(theme.suffixPadding!),
         hintText: hintText,
-        hintStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
-              color: Theme.of(context).colorScheme.primary.shade200,
-            ),
-        errorStyle: !showErrorText
-            ? const TextStyle(color: Colors.transparent, fontSize: 0, height: 0)
-            : const TextStyle(height: 0, wordSpacing: 1, fontSize: 10),
       ),
       inputFormatters: inputFormatters,
       onChanged: (value) {
@@ -209,11 +190,9 @@ class FormTextField extends StatelessWidget {
     );
   }
 
-  Widget get _suffix {
+  Widget _suffix(EdgeInsets padding) {
     return Padding(
-      padding: const EdgeInsets.only(
-        right: 5,
-      ),
+      padding: padding,
       child: suffix,
     );
   }

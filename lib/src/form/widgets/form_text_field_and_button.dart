@@ -24,7 +24,6 @@ class FormTextFieldAndButton extends StatefulWidget {
     this.initialValue,
     this.suffix,
     this.onPressed,
-    this.backgroundColor,
     this.autovalidateMode,
     this.validator,
     this.validateIfIsEmpty = true,
@@ -46,7 +45,6 @@ class FormTextFieldAndButton extends StatefulWidget {
   final Widget? suffix;
   final Function()? onPressed;
   final bool edit;
-  final Color? backgroundColor;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
   final bool validateIfIsEmpty;
@@ -76,7 +74,6 @@ class _FormTextFieldAndButtonState extends State<FormTextFieldAndButton> {
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,
-        margin: widget.margin,
         obscureText: widget.obscureText,
         onChanged: (value) {
           if (widget.validateIfIsEmpty) {
@@ -90,10 +87,8 @@ class _FormTextFieldAndButtonState extends State<FormTextFieldAndButton> {
           }
         },
         onTap: widget.onTap,
-        showErrorText: widget.showErrorText,
         hintText: widget.hintText,
         suffix: FormIconButton(
-          backgroundColor: widget.backgroundColor,
           onPressed: !_enableBtn
               ? null
               : () {
