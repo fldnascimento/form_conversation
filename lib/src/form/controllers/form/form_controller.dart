@@ -168,4 +168,14 @@ class FormController extends Controller<FormState> {
 
     return listAnswer.any((element) => element.tag == tag);
   }
+
+  Map<String, dynamic> getAllFormData() {
+    Map<String, dynamic> values = {};
+    for (var key in state.values.keys) {
+      if (key != StringConstants.tagEdit) {
+        values.addAll({key: state.values[key]?.value});
+      }
+    }
+    return values;
+  }
 }
