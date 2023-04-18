@@ -51,7 +51,7 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
                   controller: context.controller,
                   builder: (context, state) {
                     if (state.status == form.FormStateStatus.editing) {
-                      if (state.currentItem is! FormAction) {
+                      if (state.currentItem is! FormAction || state.formScreenItems.isEmpty) {
                         widget.controller.buildNextItem();
                       }
                     }

@@ -8,7 +8,11 @@ abstract class Controller<T> extends ValueNotifier<T> {
   Controller(super.value);
 
   emit(T state) {
-    if (_runTest || _finishedWidgetsRender) {
+    if (_runTest && !_finishedWidgetsRender) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        value = state;
+      });
+    } else if (_finishedWidgetsRender || _runTest) {
       value = state;
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {

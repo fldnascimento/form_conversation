@@ -113,7 +113,7 @@ class FormController extends Controller<FormState> {
   }
 
   bool get buildNext {
-    bool notItemLast = state.formItems!.length >
+    bool notItemLast = (state.formItems?.length ?? 0) >
         state.formScreenItems.where((element) => element.hash != null).length;
     return notItemLast;
   }
