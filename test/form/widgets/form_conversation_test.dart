@@ -86,4 +86,46 @@ void main() {
     expect(find.text('Message test'), findsOneWidget);
     expect(find.text('FormMessage test'), findsOneWidget);
   });
+
+  testWidgets('should edit form action answer', (tester) async {
+    await tester.pumpWidget(
+      TestWidget(
+        child:
+            FormConversation(controller: controller, formItems: [formAction]),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(FormTextField), "test answer!");
+    await tester.pump();
+
+    await tester.tap(find.byType(RawMaterialButton));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Alterar'), findsOneWidget);
+
+    await tester.runAsync(() async {
+      await tester.tap(find.text('Alterar'));
+    });
+    await tester.pumpAndSettle();
+
+    expect(find.text('Corrigir Test'), findsOneWidget);
+
+    final textFieldModal =
+        find.byWidget(tester.widgetList(find.byType(FormTextField)).last);
+
+    await tester.enterText(textFieldModal, "test answer2!");
+    await tester.pump();
+
+    final buttonModal =
+        find.byWidget(tester.widgetList(find.byType(RawMaterialButton)).last);
+    await tester.tap(buttonModal);
+    await tester.pumpAndSettle();
+
+    final answer = find.byWidgetPredicate(
+      (widget) => widget is AnswerCard && widget.text == 'test answer2!',
+    );
+
+    expect(answer, findsOneWidget);
+  });
 }
