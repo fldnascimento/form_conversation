@@ -23,7 +23,6 @@ class FormTextFieldAndButton extends StatefulWidget {
     this.onTap,
     this.initialValue,
     this.suffix,
-    this.onPressed,
     this.autovalidateMode,
     this.validator,
     this.validateIfIsEmpty = true,
@@ -43,7 +42,6 @@ class FormTextFieldAndButton extends StatefulWidget {
   final Function()? onTap;
   final String? initialValue;
   final Widget? suffix;
-  final Function()? onPressed;
   final bool edit;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
