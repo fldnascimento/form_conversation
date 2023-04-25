@@ -10,7 +10,9 @@ A package to create forms in conversation format.
 ## Screenshots
 
 <p float="left">
-<img src="https://i.ibb.co/JQqZmwH/Captura-de-Tela-2023-04-25-a-s-19-27-51.png" width="300" alt="print screen" />
+<img src="https://i.ibb.co/xMC1TKM/20230425-195049.gif" width="300" height="613" alt="print screen" />
+<img src="https://i.ibb.co/JQqZmwH/Captura-de-Tela-2023-04-25-a-s-19-27-51.png" width="300"  alt="print screen" />
+
 </p>
 
 ## Usage
