@@ -1,39 +1,65 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Form Conversation
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+![Pub dev](https://img.shields.io/badge/pub-v1.0.0-blue)
+![Coverage Status](https://img.shields.io/badge/coverage-93.9%25-green)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+## Overview
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A package to create forms in conversation format.
 
-## Features
+## Screenshots
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+<p float="left">
+<img src="https://felipe.li/form_conversation.png" width="300" alt="search page" />
+</p>
 
 ## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+To use it, just create a widget and implement `FormConversation` passing a `FormController` controller and the form Items.
 
 ```dart
-const like = 'sample';
+import 'package:form_conversation/form_conversation.dart';
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  final FormController controller = FormController();
+
+  @override
+  Widget build(BuildContext context) {
+    return FormConversation(
+        controller: controller,
+        formItems: [
+            FormMessage(
+                text: 'Olá! 😃',
+                delay: 1000,
+            ),
+            FormMessage(
+                text: 'Que bom ver você aqui!',
+            ),
+            FormAction(
+                tag: 'name',
+                name: 'Nome',
+                text: 'Digite seu nome',
+                edit: true,
+                builder: (context, tag, edit) {
+                    return FormTextFieldAndButton(
+                        tag: tag,
+                        edit: edit,
+                        hintText: 'Digite seu nome',
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                            if (value != null && value.length <= 3) {
+                            return '';
+                            }
+                            return null;
+                        },
+                        formController: controller,
+                    );
+                },
+            ),
+        ]
+    );
+  }
+}
+
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
