@@ -10,11 +10,11 @@ A package to create forms in conversation format.
 ## Screenshots
 
 <p float="left">
-<img src="https://felipe.li/form_conversation.png" width="300" alt="search page" />
+<img src="https://i.ibb.co/JQqZmwH/Captura-de-Tela-2023-04-25-a-s-19-27-51.png" width="300" alt="print screen" />
 </p>
 
 ## Usage
-To use it, just create a widget and implement `FormConversation` passing a `FormController` controller and the form Items.
+To use it, just create a widget and implement `FormConversation` passing a  controller `FormController` and the form Items.
 
 ```dart
 import 'package:form_conversation/form_conversation.dart';
