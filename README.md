@@ -1,6 +1,6 @@
 # Form Conversation
 
-![Pub dev](https://img.shields.io/badge/pub-v1.0.0-blue)
+![Pub dev](https://img.shields.io/pub/v/form_conversation)
 ![Coverage Status](https://img.shields.io/badge/coverage-93.9%25-green)
 
 ## Overview
