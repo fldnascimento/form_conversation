@@ -57,7 +57,7 @@ class FormTextFieldStyle extends StyleBase<FormTextFieldStyle> {
           ),
         ),
         prefix: const SizedBox(width: 16),
-        hintStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
+        hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.primary.shade200,
             ),
         errorStyle: const TextStyle(height: 0, wordSpacing: 1, fontSize: 10),
