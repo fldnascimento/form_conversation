@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/color_shade.dart';
 import '../../core/controller_builder.dart';
 import '../controllers/form/form_controller.dart';
 import '../controllers/form/form_state.dart' as form;
@@ -78,7 +77,7 @@ class _FormWidgetBaseState extends State<FormWidgetBase> {
                 if (currentItem is FormAction) {
                   return Container(
                     margin: theme.cardMargin,
-                    color: Theme.of(context).colorScheme.primary.shade800,
+                    color: theme.actionBackgroundColor,
                     padding: theme.cardPadding,
                     child: currentItem.builder(
                       context,

@@ -19,7 +19,7 @@ abstract class FormModal {
         ),
       ),
       isScrollControlled: true,
-      backgroundColor: Theme.of(context).colorScheme.background.shade400,
+      backgroundColor: Theme.of(context).colorScheme.surface.shade400,
       context: context,
       builder: (BuildContext bc) {
         return FormInheritedWidget(

@@ -31,7 +31,6 @@ class FormTextField extends StatelessWidget {
   final TextAlign textAlign;
   final TextAlignVertical? textAlignVertical;
   final bool readOnly;
-  final ToolbarOptions? toolbarOptions;
   final bool? showCursor;
   final String obscuringCharacter;
   final SmartDashesType? smartDashesType;
@@ -85,7 +84,6 @@ class FormTextField extends StatelessWidget {
     this.strutStyle,
     this.textDirection,
     this.textAlignVertical,
-    this.toolbarOptions,
     this.showCursor,
     this.smartDashesType,
     this.smartQuotesType,
@@ -186,7 +184,6 @@ class FormTextField extends StatelessWidget {
       textCapitalization: textCapitalization,
       textDirection: textDirection,
       textInputAction: textInputAction,
-      toolbarOptions: toolbarOptions,
     );
   }
 

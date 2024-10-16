@@ -24,7 +24,7 @@ class FormButton extends StatelessWidget {
       height: theme.height,
       child: ElevatedButton(
         style: theme.buttonStyle?.copyWith(
-          backgroundColor: MaterialStateProperty.all<Color?>(backgroundColor),
+          backgroundColor: WidgetStateProperty.all<Color?>(backgroundColor),
         ),
         onPressed: onPressed,
         child: Text(

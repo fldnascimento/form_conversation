@@ -50,10 +50,10 @@ class FormButtonStyle extends StyleBase<FormButtonStyle> {
       width: double.infinity,
       height: 40,
       buttonStyle: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color?>(
+        backgroundColor: WidgetStateProperty.all<Color?>(
           Theme.of(context).colorScheme.primary.shade50,
         ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),

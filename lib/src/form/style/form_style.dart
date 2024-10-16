@@ -4,6 +4,7 @@ import '../../core/style_base.dart';
 
 class FormStyle extends StyleBase<FormStyle> {
   final Color? backgroundColor;
+  final Color? actionBackgroundColor;
   final PreferredSizeWidget? appBar;
   final EdgeInsets? margin;
   final EdgeInsets? cardMargin;
@@ -12,6 +13,7 @@ class FormStyle extends StyleBase<FormStyle> {
   const FormStyle({
     this.appBar,
     this.backgroundColor,
+    this.actionBackgroundColor,
     this.cardMargin,
     this.cardPadding,
     this.margin,
@@ -20,6 +22,7 @@ class FormStyle extends StyleBase<FormStyle> {
   @override
   FormStyle copyWith({
     Color? backgroundColor,
+    Color? actionBackgroundColor,
     PreferredSizeWidget? appBar,
     EdgeInsets? margin,
     EdgeInsets? cardMargin,
@@ -28,6 +31,8 @@ class FormStyle extends StyleBase<FormStyle> {
     return FormStyle(
       appBar: appBar ?? this.appBar,
       backgroundColor: backgroundColor ?? this.backgroundColor,
+      actionBackgroundColor:
+          actionBackgroundColor ?? this.actionBackgroundColor,
       cardMargin: cardMargin ?? this.cardMargin,
       cardPadding: cardPadding ?? this.cardPadding,
       margin: margin ?? this.margin,
@@ -43,6 +48,7 @@ class FormStyle extends StyleBase<FormStyle> {
     return copyWith(
       appBar: theme.appBar,
       backgroundColor: theme.backgroundColor,
+      actionBackgroundColor: theme.actionBackgroundColor,
       cardMargin: theme.cardMargin,
       cardPadding: theme.cardPadding,
       margin: theme.margin,
@@ -51,9 +57,10 @@ class FormStyle extends StyleBase<FormStyle> {
 
   static FormStyle defaultTheme(BuildContext context) {
     return FormStyle(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      actionBackgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         centerTitle: false,
         leading: IconButton(
           onPressed: () {},
